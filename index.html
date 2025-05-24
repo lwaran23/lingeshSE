@@ -4,8 +4,309 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Device Systems Engineering Insights</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* style.css */
+        :root {
+            --primary-bg-color: #101820; /* Very Dark Blue/Almost Black */
+            --secondary-bg-color: #1A2433; /* Slightly Lighter Dark Blue */
+            --primary-text-color: #F2F4F7; /* Light Grey/Off-White */
+            --secondary-text-color: #A0AEC0; /* Medium Grey */
+            --accent-color-royal: #005A9C; /* Royal Blue */
+            --accent-color-rich: #DAA520; /* Goldenrod */
+            --accent-color-hover: #FFC107; /* Brighter Gold for hover */
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Lato', sans-serif;
+            --border-radius: 8px;
+            --transition-speed: 0.4s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--primary-bg-color);
+            color: var(--primary-text-color);
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--secondary-bg-color);
+            padding: 1.5rem 0;
+            border-bottom: 2px solid var(--accent-color-royal);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-family: var(--font-heading);
+            color: var(--accent-color-rich);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: var(--primary-text-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            font-size: 1.1rem;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active-link {
+            background-color: var(--accent-color-royal);
+            color: var(--accent-color-rich);
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        .content-section {
+            display: none; /* Hidden by default, shown by JS */
+            padding: 40px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out;
+            border-bottom: 1px dashed var(--secondary-text-color);
+        }
+
+        .content-section.active-section {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section h2 {
+            font-family: var(--font-heading);
+            color: var(--accent-color-rich);
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--accent-color-royal);
+            padding-bottom: 0.5rem;
+        }
+
+        .content-section h3 {
+            font-family: var(--font-heading);
+            color: var(--accent-color-royal);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .content-section h4 {
+            font-family: var(--font-heading);
+            color: var(--accent-color-rich);
+            opacity: 0.9;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .content-section p,.content-section ul {
+            margin-bottom: 1rem;
+            color: var(--secondary-text-color);
+            font-size: 1.05rem;
+        }
+
+        .content-section ul {
+            list-style-position: inside;
+            padding-left: 20px;
+        }
+
+        .subsection-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .sub-nav-link {
+            background-color: var(--secondary-bg-color);
+            color: var(--primary-text-color);
+            border: 1px solid var(--accent-color-royal);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            font-weight: bold;
+        }
+
+        .sub-nav-link:hover,
+        .sub-nav-link.active-sub-link {
+            background-color: var(--accent-color-royal);
+            color: var(--accent-color-rich);
+        }
+
+        .sub-content {
+            display: none; /* Hidden by default */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.03); /* Subtle background for sub-content */
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+            animation: fadeInSubContent 0.5s ease-in-out;
+        }
+
+        .sub-content.active-sub-content {
+            display: block;
+        }
+
+        @keyframes fadeInSubContent {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* Contact Form Styling */
+        #contactForm {
+            background-color: var(--secondary-bg-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color-rich);
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-color-royal);
+            background-color: var(--primary-bg-color);
+            color: var(--primary-text-color);
+            font-size: 1rem;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color-rich);
+            box-shadow: 0 0 5px var(--accent-color-rich);
+        }
+
+        .submit-button {
+            background-color: var(--accent-color-royal);
+            color: var(--accent-color-rich);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background-color var(--transition-speed), transform 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: var(--accent-color-hover);
+            color: var(--primary-bg-color);
+            transform: translateY(-2px);
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .form-message.success {
+            background-color: #2E7D32; /* Dark Green */
+            color: white;
+        }
+
+        .form-message.error {
+            background-color: #C62828; /* Dark Red */
+            color: white;
+        }
+
+
+        footer {
+            background-color: var(--secondary-bg-color);
+            color: var(--secondary-text-color);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 2px solid var(--accent-color-royal);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+           .content-section h2 {
+                font-size: 1.8rem;
+            }
+           .content-section h3 {
+                font-size: 1.5rem;
+            }
+           .content-section h4 {
+                font-size: 1.3rem;
+            }
+           .subsection-nav {
+                flex-direction: column;
+            }
+           .sub-nav-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -36,7 +337,7 @@
             <div class="container">
                 <h2>Section 1: Foundations of Medical Device Systems Engineering</h2>
                 <div class="subsection-nav">
-                    <button class="sub-nav-link" data-subtarget="foundations-1-1">1.1 Role & Value</button>
+                    <button class="sub-nav-link active-sub-link" data-subtarget="foundations-1-1">1.1 Role & Value</button>
                     <button class="sub-nav-link" data-subtarget="foundations-1-2">1.2 Key Principles</button>
                     <button class="sub-nav-link" data-subtarget="foundations-1-3">1.3 Lifecycle</button>
                     <button class="sub-nav-link" data-subtarget="foundations-1-4">1.4 Core Processes</button>
@@ -44,37 +345,37 @@
                 </div>
                 <div id="foundations-1-1" class="sub-content active-sub-content">
                     <h3>1.1 The Role and Value of Systems Engineering in Medical Device Development</h3>
-                    <p></p>
+                    <p>Systems engineering plays a crucial role in managing complexity, ensuring safety, and meeting regulatory requirements throughout the medical device lifecycle. Its value lies in reducing risks, improving quality, and accelerating time-to-market by providing a structured approach to design, development, and verification.</p>
                 </div>
                 <div id="foundations-1-2" class="sub-content">
                     <h3>1.2 Key Principles: Stakeholder Needs, Iterative Design, Multidisciplinary Collaboration</h3>
-                    <p></p>
+                    <p>Effective medical device systems engineering is built on understanding and translating stakeholder needs into clear requirements, employing iterative design and prototyping to refine solutions, and fostering close collaboration among diverse engineering, clinical, and regulatory teams.</p>
                 </div>
                 <div id="foundations-1-3" class="sub-content">
                     <h3>1.3 The Medical Device Development Lifecycle: Phases and Activities</h3>
-                    <p></p>
+                    <p>The lifecycle typically includes conceptualization, planning, design and development, verification and validation, manufacturing transfer, and post-market surveillance. Each phase involves specific systems engineering activities to ensure the device meets its intended use safely and effectively.</p>
                 </div>
                 <div id="foundations-1-4" class="sub-content">
                     <h3>1.4 Core Systems Engineering Processes</h3>
                     <h4>1.4.1 Requirements Engineering and Management</h4>
-                    <p></p>
+                    <p>This involves eliciting, analyzing, specifying, validating, and managing requirements from all stakeholders (users, regulatory bodies, business). Traceability of requirements is key.</p>
                     <h4>1.4.2 Risk Management (ISO 14971)</h4>
-                    <p></p>
+                    <p>A systematic process to identify, analyze, evaluate, control, and monitor risks associated with a medical device throughout its lifecycle. ISO 14971 provides the framework.</p>
                     <h4>1.4.3 Design Verification and Validation (V&V)</h4>
-                    <p></p>
+                    <p>Verification confirms that design outputs meet design inputs. Validation confirms that the device meets user needs and intended uses under actual or simulated use conditions.</p>
                     <h4>1.4.4 Human Factors Engineering & Usability (IEC 62366)</h4>
-                    <p></p>
+                    <p>Focuses on designing devices that are safe, effective, and easy for the intended users to operate in the intended use environment. IEC 62366 outlines the usability engineering process.</p>
                 </div>
                 <div id="foundations-1-5" class="sub-content">
                     <h3>1.5 Essential Quality and Regulatory Considerations</h3>
                     <h4>1.5.1 Quality Management Systems (ISO 13485)</h4>
-                    <p></p>
+                    <p>ISO 13485 specifies requirements for a QMS where an organization needs to demonstrate its ability to provide medical devices and related services that consistently meet customer and applicable regulatory requirements.</p>
                     <h4>1.5.2 Overview of FDA and EU MDR Frameworks</h4>
-                    <p></p>
+                    <p>The FDA (U.S. Food and Drug Administration) and EU MDR (European Union Medical Device Regulation) are primary regulatory frameworks governing medical device approval and market access. They have distinct requirements for classification, clinical evidence, and post-market activities.</p>
                     <h4>1.5.3 Biocompatibility (ISO 10993 Overview)</h4>
-                    <p></p>
+                    <p>ISO 10993 provides a framework for assessing the biological safety of medical devices that come into contact with the body, ensuring they do not cause adverse local or systemic effects.</p>
                     <h4>1.5.4 Cybersecurity for Connected Medical Devices</h4>
-                    <p></p>
+                    <p>With increasing connectivity, ensuring the cybersecurity of medical devices is critical to protect patient data and device functionality from threats. Regulatory bodies are placing greater emphasis on robust cybersecurity measures.</p>
                 </div>
             </div>
         </section>
@@ -83,7 +384,7 @@
             <div class="container">
                 <h2>Section 2: Systems Engineering of Sleep and Respiratory Care Ventilators</h2>
                 <div class="subsection-nav">
-                     <button class="sub-nav-link" data-subtarget="ventilators-2-1">2.1 Overview</button>
+                     <button class="sub-nav-link active-sub-link" data-subtarget="ventilators-2-1">2.1 Overview</button>
                      <button class="sub-nav-link" data-subtarget="ventilators-2-2">2.2 Subsystems</button>
                      <button class="sub-nav-link" data-subtarget="ventilators-2-3">2.3 SE Considerations</button>
                      <button class="sub-nav-link" data-subtarget="ventilators-2-4">2.4 Regulatory</button>
@@ -91,23 +392,23 @@
                 </div>
                 <div id="ventilators-2-1" class="sub-content active-sub-content">
                     <h3>2.1 Overview of Ventilator Technology</h3>
-                    <p></p>
+                    <p>Ventilators are life-supporting devices that assist or replace spontaneous breathing. They range from simple CPAP/BiPAP devices for sleep apnea to complex ICU ventilators for critical care. Key functions include controlled delivery of air/oxygen, monitoring of respiratory parameters, and alarm systems.</p>
                 </div>
                 <div id="ventilators-2-2" class="sub-content">
                     <h3>2.2 Key Subsystems and Components of Ventilators</h3>
-                    <p></p>
+                    <p>Major subsystems include: 1. Gas Delivery (pneumatics, blowers, valves, flow sensors). 2. Patient Interface (masks, tubing, humidifiers). 3. Control System (microprocessors, algorithms, user interface). 4. Monitoring and Alarms (pressure, volume, SpO2 sensors). 5. Power Management (battery backup).</p>
                 </div>
                 <div id="ventilators-2-3" class="sub-content">
                     <h3>2.3 Critical Systems Engineering Considerations for Ventilators</h3>
-                     <p></p>
+                     <p>Reliability and safety are paramount. This includes robust alarm systems, fault tolerance, precise control of ventilation parameters, human factors for ease of use by clinicians and patients, biocompatibility of patient-contacting parts, and electromagnetic compatibility.</p>
                 </div>
                 <div id="ventilators-2-4" class="sub-content">
                     <h3>2.4 Regulatory Pathways and Compliance for Ventilators (FDA and EU MDR)</h3>
-                    <p></p>
+                    <p>Ventilators are typically Class II or Class III devices (FDA) / Class IIb or Class III (EU MDR), requiring rigorous premarket submissions (e.g., 510(k) or PMA / CE marking technical documentation), extensive testing (electrical safety, EMC, performance), and clinical data.</p>
                 </div>
                 <div id="ventilators-2-5" class="sub-content">
                     <h3>2.5 Case Studies and Best Practices in Ventilator Development</h3>
-                    <p></p>
+                    <p>Examples include the rapid development of emergency ventilators during pandemics, highlighting the importance of agile design and regulatory flexibility. Best practices involve early user feedback, model-based systems engineering (MBSE), and comprehensive risk management.</p>
                 </div>
             </div>
         </section>
@@ -116,21 +417,21 @@
             <div class="container">
                 <h2>Section 3: Systems Engineering of Pen-Injectors</h2>
                 <div class="subsection-nav">
-                     <button class="sub-nav-link" data-subtarget="pen-injectors-3-1">3.1 Overview</button>
+                     <button class="sub-nav-link active-sub-link" data-subtarget="pen-injectors-3-1">3.1 Overview</button>
                      <button class="sub-nav-link" data-subtarget="pen-injectors-3-2">3.2 Subsystems</button>
                      <button class="sub-nav-link" data-subtarget="pen-injectors-3-3">3.3 SE Considerations</button>
                 </div>
                 <div id="pen-injectors-3-1" class="sub-content active-sub-content">
                     <h3>3.1 Overview of Pen-Injector Technology</h3>
-                    <p></p>
+                    <p>Pen-injectors are drug delivery devices used for self-administration of fixed or variable doses of medication (e.g., insulin, hormones). They aim to improve dosing accuracy, convenience, and patient adherence compared to traditional vial and syringe methods.</p>
                 </div>
                  <div id="pen-injectors-3-2" class="sub-content">
                     <h3>3.2 Key Subsystems and Components of Pen-Injectors</h3>
-                    <p></p>
+                    <p>Key components include: 1. Drug Cartridge Holder. 2. Dosing Mechanism (dial, plunger, lead screw). 3. Activation Mechanism (button, trigger). 4. Needle Attachment System. 5. Housing and Ergonomic Features. Some may include electronic displays or connectivity.</p>
                 </div>
                 <div id="pen-injectors-3-3" class="sub-content">
                     <h3>3.3 Critical Systems Engineering Considerations for Pen-Injectors</h3>
-                    <p></p>
+                    <p>Focus areas include dose accuracy and precision, ease of use for diverse patient populations (including those with dexterity limitations), material compatibility with the drug, robustness of the mechanism over its intended life, clear feedback to the user (dose setting, injection completion), and safety features to prevent needlestick injuries or incorrect use.</p>
                 </div>
             </div>
         </section>
@@ -170,6 +471,185 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // script.js
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav .nav-link'); // Corrected selector
+            const contentSections = document.querySelectorAll('.content-section');
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            const currentYearSpan = document.getElementById('currentYear');
+
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Function to handle navigation
+            function navigateToSection(targetId) {
+                // Hide all sections and remove active class from links
+                contentSections.forEach(section => {
+                    section.classList.remove('active-section');
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active-link');
+                });
+
+                // Show target section and set active class on link
+                const targetSection = document.getElementById(targetId);
+                // Ensure querySelector is specific enough
+                const targetLink = document.querySelector(`nav .nav-link[data-target="${targetId}"]`);
+
+
+                if (targetSection) {
+                    // Use a slight delay to allow display:block to take effect before animation
+                    setTimeout(() => {
+                        targetSection.classList.add('active-section');
+                    }, 10); // Small delay
+                }
+                if (targetLink) {
+                    targetLink.classList.add('active-link');
+                }
+
+                // Scroll to the section smoothly
+                if (targetSection) {
+                   // Scroll into view, but only if not already in view to avoid jump on load for #home
+                   // Or simply always scroll:
+                   // targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            // Function to handle sub-navigation within a section
+            function handleSubNavigation(sectionId) {
+                const sectionElement = document.getElementById(sectionId);
+                if (!sectionElement) return;
+
+                const subNavLinks = sectionElement.querySelectorAll('.sub-nav-link');
+                const subContentSections = sectionElement.querySelectorAll('.sub-content');
+
+                subNavLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        const subTargetId = link.dataset.subtarget;
+
+                        subContentSections.forEach(subSection => {
+                            subSection.classList.remove('active-sub-content');
+                        });
+                        subNavLinks.forEach(sLink => {
+                            sLink.classList.remove('active-sub-link');
+                        });
+
+                        const targetSubSection = document.getElementById(subTargetId);
+                        if (targetSubSection) {
+                            targetSubSection.classList.add('active-sub-content');
+                        }
+                        link.classList.add('active-sub-link');
+                    });
+                });
+
+                // Activate the first sub-navigation link by default if it exists
+                // The active-sub-content class is already set in HTML for the first sub-content
+                // The active-sub-link class is also set in HTML for the first sub-nav-link
+            }
+
+
+            // Add click event listeners to main navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const targetId = link.dataset.target;
+                    navigateToSection(targetId);
+                     // Update URL hash for bookmarking/sharing, without causing page jump if handled carefully
+                    if (history.pushState) {
+                        history.pushState(null, null, `#${targetId}`);
+                    } else {
+                        window.location.hash = `#${targetId}`;
+                    }
+                });
+            });
+
+            // Initialize sub-navigation for all relevant sections
+            ['foundations', 'ventilators', 'pen-injectors'].forEach(sectionId => {
+                handleSubNavigation(sectionId);
+            });
+            
+            // Handle contact form submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', (event) => {
+                    event.preventDefault(); // Prevent actual form submission
+
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+
+                    // For GitHub Pages, you can't directly process this server-side.
+                    // Option 1: Log to console (for demonstration)
+                    console.log('Form Submitted:');
+                    console.log('Name:', name);
+                    console.log('Email:', email);
+                    console.log('Subject:', subject);
+                    console.log('Message:', message);
+
+                    // Display a success message to the user
+                    if (formMessage) {
+                        formMessage.textContent = 'Thank you for your message! (Data logged to console)';
+                        formMessage.className = 'form-message success'; // Add success class
+                    }
+                    contactForm.reset(); // Clear the form
+
+                    // Option 2: Integrate with a third-party service like Formspree.
+                    // To do this, you would change the form's `action` attribute to your Formspree endpoint
+                    // and remove `event.preventDefault()` or handle submission via fetch API.
+                    // Example for Formspree (replace YOUR_FORM_ID with your actual Formspree ID):
+                    // <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    // Then, you might not need the JS handling for submission itself, or you'd use fetch:
+                    /*
+                    fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name, email, subject, message })
+                    }).then(response => {
+                        if (response.ok) {
+                            formMessage.textContent = 'Thank you for your message!';
+                            formMessage.className = 'form-message success';
+                            contactForm.reset();
+                        } else {
+                            response.json().then(data => {
+                                if (Object.hasOwn(data, 'errors')) {
+                                    formMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
+                                } else {
+                                    formMessage.textContent = 'Oops! There was a problem submitting your form.';
+                                }
+                                formMessage.className = 'form-message error';
+                            })
+                        }
+                    }).catch(error => {
+                        formMessage.textContent = 'Oops! There was a problem submitting your form.';
+                        formMessage.className = 'form-message error';
+                    });
+                    */
+
+                    if(formMessage){
+                        setTimeout(() => {
+                            formMessage.textContent = '';
+                            formMessage.className = 'form-message';
+                        }, 5000); // Clear message after 5 seconds
+                    }
+                });
+            }
+
+            // Show the initial section based on URL hash or default to 'home'
+            // The 'active-section' and 'active-link' classes are already set on the home elements in HTML.
+            // This function will ensure the correct section is displayed on load if a hash is present.
+            const initialTargetFromHash = window.location.hash.substring(1);
+            if (initialTargetFromHash) {
+                navigateToSection(initialTargetFromHash);
+            } else {
+                // If no hash, ensure 'home' is correctly initialized (already done by HTML, but good for robustness)
+                 navigateToSection('home');
+            }
+        });
+    </script>
 </body>
 </html>
