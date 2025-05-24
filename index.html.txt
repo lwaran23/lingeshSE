@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Device Systems Engineering Insights</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Medical Device Systems Engineering</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="nav-link active-link" data-target="home">Home</a></li>
+                    <li><a href="#foundations" class="nav-link" data-target="foundations">Foundations</a></li>
+                    <li><a href="#ventilators" class="nav-link" data-target="ventilators">Ventilators</a></li>
+                    <li><a href="#pen-injectors" class="nav-link" data-target="pen-injectors">Pen-Injectors</a></li>
+                    <li><a href="#contact" class="nav-link" data-target="contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="content-section active-section">
+            <div class="container">
+                <h2>Welcome to In-Depth Systems Engineering</h2>
+                <p>Explore comprehensive insights into the systems engineering of medical devices, focusing on sleep/respiratory care ventilators and pen-injectors. This resource is derived from an extensive analysis of the field, covering foundational principles, device-specific considerations, regulatory landscapes, and emerging technologies.</p>
+                <p>Navigate through the sections to delve into specific areas of interest.</p>
+            </div>
+        </section>
+
+        <section id="foundations" class="content-section">
+            <div class="container">
+                <h2>Section 1: Foundations of Medical Device Systems Engineering</h2>
+                <div class="subsection-nav">
+                    <button class="sub-nav-link" data-subtarget="foundations-1-1">1.1 Role & Value</button>
+                    <button class="sub-nav-link" data-subtarget="foundations-1-2">1.2 Key Principles</button>
+                    <button class="sub-nav-link" data-subtarget="foundations-1-3">1.3 Lifecycle</button>
+                    <button class="sub-nav-link" data-subtarget="foundations-1-4">1.4 Core Processes</button>
+                    <button class="sub-nav-link" data-subtarget="foundations-1-5">1.5 Quality & Regulatory</button>
+                </div>
+                <div id="foundations-1-1" class="sub-content active-sub-content">
+                    <h3>1.1 The Role and Value of Systems Engineering in Medical Device Development</h3>
+                    <p></p>
+                </div>
+                <div id="foundations-1-2" class="sub-content">
+                    <h3>1.2 Key Principles: Stakeholder Needs, Iterative Design, Multidisciplinary Collaboration</h3>
+                    <p></p>
+                </div>
+                <div id="foundations-1-3" class="sub-content">
+                    <h3>1.3 The Medical Device Development Lifecycle: Phases and Activities</h3>
+                    <p></p>
+                </div>
+                <div id="foundations-1-4" class="sub-content">
+                    <h3>1.4 Core Systems Engineering Processes</h3>
+                    <h4>1.4.1 Requirements Engineering and Management</h4>
+                    <p></p>
+                    <h4>1.4.2 Risk Management (ISO 14971)</h4>
+                    <p></p>
+                    <h4>1.4.3 Design Verification and Validation (V&V)</h4>
+                    <p></p>
+                    <h4>1.4.4 Human Factors Engineering & Usability (IEC 62366)</h4>
+                    <p></p>
+                </div>
+                <div id="foundations-1-5" class="sub-content">
+                    <h3>1.5 Essential Quality and Regulatory Considerations</h3>
+                    <h4>1.5.1 Quality Management Systems (ISO 13485)</h4>
+                    <p></p>
+                    <h4>1.5.2 Overview of FDA and EU MDR Frameworks</h4>
+                    <p></p>
+                    <h4>1.5.3 Biocompatibility (ISO 10993 Overview)</h4>
+                    <p></p>
+                    <h4>1.5.4 Cybersecurity for Connected Medical Devices</h4>
+                    <p></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ventilators" class="content-section">
+            <div class="container">
+                <h2>Section 2: Systems Engineering of Sleep and Respiratory Care Ventilators</h2>
+                <div class="subsection-nav">
+                     <button class="sub-nav-link" data-subtarget="ventilators-2-1">2.1 Overview</button>
+                     <button class="sub-nav-link" data-subtarget="ventilators-2-2">2.2 Subsystems</button>
+                     <button class="sub-nav-link" data-subtarget="ventilators-2-3">2.3 SE Considerations</button>
+                     <button class="sub-nav-link" data-subtarget="ventilators-2-4">2.4 Regulatory</button>
+                     <button class="sub-nav-link" data-subtarget="ventilators-2-5">2.5 Case Studies</button>
+                </div>
+                <div id="ventilators-2-1" class="sub-content active-sub-content">
+                    <h3>2.1 Overview of Ventilator Technology</h3>
+                    <p></p>
+                </div>
+                <div id="ventilators-2-2" class="sub-content">
+                    <h3>2.2 Key Subsystems and Components of Ventilators</h3>
+                    <p></p>
+                </div>
+                <div id="ventilators-2-3" class="sub-content">
+                    <h3>2.3 Critical Systems Engineering Considerations for Ventilators</h3>
+                     <p></p>
+                </div>
+                <div id="ventilators-2-4" class="sub-content">
+                    <h3>2.4 Regulatory Pathways and Compliance for Ventilators (FDA and EU MDR)</h3>
+                    <p></p>
+                </div>
+                <div id="ventilators-2-5" class="sub-content">
+                    <h3>2.5 Case Studies and Best Practices in Ventilator Development</h3>
+                    <p></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pen-injectors" class="content-section">
+            <div class="container">
+                <h2>Section 3: Systems Engineering of Pen-Injectors</h2>
+                <div class="subsection-nav">
+                     <button class="sub-nav-link" data-subtarget="pen-injectors-3-1">3.1 Overview</button>
+                     <button class="sub-nav-link" data-subtarget="pen-injectors-3-2">3.2 Subsystems</button>
+                     <button class="sub-nav-link" data-subtarget="pen-injectors-3-3">3.3 SE Considerations</button>
+                </div>
+                <div id="pen-injectors-3-1" class="sub-content active-sub-content">
+                    <h3>3.1 Overview of Pen-Injector Technology</h3>
+                    <p></p>
+                </div>
+                 <div id="pen-injectors-3-2" class="sub-content">
+                    <h3>3.2 Key Subsystems and Components of Pen-Injectors</h3>
+                    <p></p>
+                </div>
+                <div id="pen-injectors-3-3" class="sub-content">
+                    <h3>3.3 Critical Systems Engineering Considerations for Pen-Injectors</h3>
+                    <p></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section">
+            <div class="container">
+                <h2>Contact Us / Provide Feedback</h2>
+                <p>We value your input. Please use the form below to send us your questions or feedback.</p>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+                <p id="formMessage" class="form-message"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Medical Device Systems Engineering Insights. All rights reserved.</p>
+            <p>Disclaimer: This website provides information based on research and is for educational purposes only. It does not constitute professional medical or engineering advice.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
