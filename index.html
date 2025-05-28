@@ -93,6 +93,9 @@
         .bottom-nav {
             flex-shrink: 0; /* Prevent nav from shrinking */
         }
+
+        /* Side Menu Styles */
+        /* The -translate-x-full and translate-x-0 classes from Tailwind will handle visibility */
     </style>
 </head>
 
@@ -100,10 +103,46 @@
     <div class="relative flex size-full min-h-screen flex-col bg-[#221112] dark group/design-root overflow-x-hidden main-app-container"
         style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
 
+        <div id="side-menu" class="fixed inset-y-0 left-0 w-64 sm:w-72 bg-[#331a1b] text-white p-4 transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Streamr Menu</h3>
+                <button onclick="toggleMenu()" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Close menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
+                </button>
+            </div>
+            <nav>
+                <ul>
+                    <li class="mb-3"><a href="#" onclick="navigateToFromMenu('page-home')" class="flex items-center gap-3 py-2.5 px-3 rounded hover:bg-[#472426] transition-colors duration-150 ease-in-out text-gray-200 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path></svg>
+                        Home
+                    </a></li>
+                    <li class="mb-3"><a href="#" onclick="navigateToFromMenu('page-search')" class="flex items-center gap-3 py-2.5 px-3 rounded hover:bg-[#472426] transition-colors duration-150 ease-in-out text-gray-200 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+                        Search & Categories
+                    </a></li>
+                    <li class="mb-3"><a href="#" onclick="navigateToFromMenu('page-my-list')" class="flex items-center gap-3 py-2.5 px-3 rounded hover:bg-[#472426] transition-colors duration-150 ease-in-out text-gray-200 hover:text-white">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
+                        My List
+                    </a></li>
+                    <li class="mb-3"><a href="#" onclick="navigateToFromMenu('page-user-profile')" class="flex items-center gap-3 py-2.5 px-3 rounded hover:bg-[#472426] transition-colors duration-150 ease-in-out text-gray-200 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
+                        Profile & Settings
+                    </a></li>
+                    <hr class="border-gray-700 my-4">
+                    <li class="mb-3"><a href="#" onclick="alert('Logout functionality to be implemented')" class="flex items-center gap-3 py-2.5 px-3 rounded hover:bg-[#ea2832] hover:text-white transition-colors duration-150 ease-in-out text-red-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M120,216a8,8,0,0,1-8,8H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h64a8,8,0,0,1,0,16H48V208h64A8,8,0,0,1,120,216Zm109.66-92.66-48-48a8,8,0,0,0-11.32,11.32L192.69,112H104a8,8,0,0,0,0,16h88.69l-22.35,22.34a8,8,0,0,0,11.32,11.32l48-48A8,8,0,0,0,229.66,123.34Z"></path></svg>
+                        Logout
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden" onclick="toggleMenu()"></div>
+
+
         <div id="content-area" class="content-area">
             <div id="page-home" class="page active">
                 <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
-                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Menu" onclick="alert('Menu functionality to be implemented')">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none hover:bg-[#472426] rounded-full p-2 transition-colors" aria-label="Menu" onclick="toggleMenu()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                             <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
                         </svg>
@@ -141,15 +180,15 @@
                 <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Top Action Films</h3>
                 <div class="flex overflow-x-auto horizontal-scrollbar">
                     <div class="flex items-stretch p-4 gap-3">
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Last Stand', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Last+Stand', description: 'An aging sheriff and his deputies are the only things standing in the way of a cartel leader and his escape to Mexico.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Last Stand', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Last+Stand', description: 'An aging sheriff and his deputies are the only things standing in the way of a cartel leader and his escape to Mexico.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+The+Last+Stand' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Last+Stand");'></div>
                             <p class="text-white text-base font-medium leading-normal">The Last Stand</p>
                         </div>
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'City of Shadows', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=City+Shadows', description: 'A detective uncovers a conspiracy in a city shrouded in darkness and corruption.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'City of Shadows', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=City+Shadows', description: 'A detective uncovers a conspiracy in a city shrouded in darkness and corruption.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+City+of+Shadows' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=City+Shadows");'></div>
                             <p class="text-white text-base font-medium leading-normal">City of Shadows</p>
                         </div>
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Midnight Pursuit', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Pursuit', description: 'A thrilling chase through the city streets as a detective hunts a notorious criminal.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Midnight Pursuit', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Pursuit', description: 'A thrilling chase through the city streets as a detective hunts a notorious criminal.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Midnight+Pursuit' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Pursuit");'></div>
                             <p class="text-white text-base font-medium leading-normal">Midnight Pursuit</p>
                         </div>
@@ -158,15 +197,15 @@
                 <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Laugh Out Loud Comedies</h3>
                 <div class="flex overflow-x-auto horizontal-scrollbar">
                     <div class="flex items-stretch p-4 gap-3">
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Accidental Hero', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Accidental+Hero', description: 'A clumsy mailman accidentally becomes a town hero.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Accidental Hero', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Accidental+Hero', description: 'A clumsy mailman accidentally becomes a town hero.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+The+Accidental+Hero' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/472426/FFFFFF?text=Accidental+Hero");'></div>
                             <p class="text-white text-base font-medium leading-normal">The Accidental Hero</p>
                         </div>
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Love & Mishaps', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Love+Mishaps', description: 'A series of hilarious misunderstandings bring an unlikely couple together.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Love & Mishaps', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Love+Mishaps', description: 'A series of hilarious misunderstandings bring an unlikely couple together.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Love+&+Mishaps' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/472426/FFFFFF?text=Love+Mishaps");'></div>
                             <p class="text-white text-base font-medium leading-normal">Love & Mishaps</p>
                         </div>
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Weekend Warriors', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Weekend+Warriors', description: 'Two friends embark on a disastrous weekend camping trip.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Weekend Warriors', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Weekend+Warriors', description: 'Two friends embark on a disastrous weekend camping trip.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Weekend+Warriors' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/472426/FFFFFF?text=Weekend+Warriors");'></div>
                             <p class="text-white text-base font-medium leading-normal">Weekend Warriors</p>
                         </div>
@@ -188,15 +227,15 @@
                 <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">New Releases</h3>
                 <div class="flex overflow-x-auto horizontal-scrollbar">
                     <div class="flex items-stretch p-4 gap-3">
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Echoes of the Past', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past', description: 'A historian uncovers a secret that changes her understanding of the past.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Echoes of the Past', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past', description: 'A historian uncovers a secret that changes her understanding of the past.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Echoes+of+the+Past' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past");'></div>
                             <p class="text-white text-base font-medium leading-normal">Echoes of the Past</p>
                         </div>
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Silent Witness', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness', description: 'A mute witness holds the key to solving a high-profile murder.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Silent Witness', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness', description: 'A mute witness holds the key to solving a high-profile murder.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+The+Silent+Witness' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness");'></div>
                             <p class="text-white text-base font-medium leading-normal">The Silent Witness</p>
                         </div>
-                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Beyond the Horizon', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Beyond+Horizon', description: 'Explorers venture into uncharted territory, facing unknown dangers.' })">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Beyond the Horizon', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Beyond+Horizon', description: 'Explorers venture into uncharted territory, facing unknown dangers.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Beyond+the+Horizon' })">
                             <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Beyond+Horizon");'></div>
                             <p class="text-white text-base font-medium leading-normal">Beyond the Horizon</p>
                         </div>
@@ -206,7 +245,7 @@
 
             <div id="page-search" class="page">
                 <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
-                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Back" onclick="showPage('page-home')">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none hover:bg-[#472426] rounded-full p-2 transition-colors" aria-label="Back" onclick="window.historyNavigation.back()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                             <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
                         </svg>
@@ -264,7 +303,8 @@
 
             <div id="page-movie-details" class="page">
                 <div class="flex items-center bg-[#221112] p-4 pb-2 justify-start sticky top-0 z-10">
-                    <button class="text-white flex size-12 shrink-0 items-center -ml-4 focus:outline-none" aria-label="Back" onclick="history.back()"> <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <button class="text-white flex size-12 shrink-0 items-center -ml-4 focus:outline-none hover:bg-[#472426] rounded-full p-2 transition-colors" aria-label="Back" onclick="window.historyNavigation.back()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                             <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
                         </svg>
                     </button>
@@ -284,7 +324,7 @@
                 </p>
                 <div class="flex justify-stretch">
                     <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-between">
-                        <button onclick="showPage('page-watch', { videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Cosmic+Echoes', title: 'Cosmic Echoes' })"
+                        <button id="detailsPlayButton"
                             class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#ea2832] text-white text-sm font-bold leading-normal tracking-[0.015em] focus:outline-none focus:ring-2 focus:ring-white">
                             <span class="truncate">Play</span>
                         </button>
@@ -406,7 +446,7 @@
 
             <div id="page-watch" class="page">
                 <div class="relative flex items-center justify-center bg-black bg-cover bg-center aspect-video" id="watch-video-container">
-                    <video id="videoPlayer" class="w-full h-full" controls autoplay poster="https://placehold.co/1280x720/000000/FFFFFF?text=Loading+Video...">
+                    <video id="videoPlayer" class="w-full h-full" controls poster="https://placehold.co/1280x720/000000/FFFFFF?text=Loading+Video...">
                         </video>
                     <button id="playPauseButton" class="absolute flex shrink-0 items-center justify-center rounded-full size-16 bg-black/40 text-white focus:outline-none">
                         <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="36px" height="36px" fill="currentColor" viewBox="0 0 256 256"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"></path></svg>
@@ -415,7 +455,8 @@
                 </div>
                 <div class="flex justify-between gap-2 px-4 py-3 bg-[#221112]">
                     <div class="flex gap-2">
-                        <button class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Back" onclick="showPage('page-movie-details')"> <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
+                        <button class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Back" onclick="window.historyNavigation.back()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
                         </button>
                         <button class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Settings" onclick="alert('Video settings to be implemented')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path></svg>
@@ -446,7 +487,7 @@
 
             <div id="page-my-list" class="page">
                  <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
-                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Back" onclick="showPage('page-home')">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none hover:bg-[#472426] rounded-full p-2 transition-colors" aria-label="Back" onclick="window.historyNavigation.back()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                             <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
                         </svg>
@@ -455,27 +496,27 @@
                 </div>
                 <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Movies</h3>
                 <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Midnight Hour', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Hour', description: 'A chilling tale that unfolds as the clock strikes twelve.' })">
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Midnight Hour', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Hour', description: 'A chilling tale that unfolds as the clock strikes twelve.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+The+Midnight+Hour' })">
                         <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Hour");'></div>
                         <p class="text-white text-base font-medium leading-normal">The Midnight Hour</p>
                     </div>
-                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Echoes of the Past', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past', description: 'A historian uncovers a secret that changes her understanding of the past.' })">
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Echoes of the Past', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past', description: 'A historian uncovers a secret that changes her understanding of the past.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Echoes+of+the+Past' })">
                         <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past");'></div>
                         <p class="text-white text-base font-medium leading-normal">Echoes of the Past</p>
                     </div>
-                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Crimson Tide', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Crimson+Tide', description: 'Tensions rise aboard a nuclear submarine during a global crisis.' })">
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Crimson Tide', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Crimson+Tide', description: 'Tensions rise aboard a nuclear submarine during a global crisis.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Crimson+Tide' })">
                         <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Crimson+Tide");'></div>
                         <p class="text-white text-base font-medium leading-normal">Crimson Tide</p>
                     </div>
-                     <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Whispers of the Wind', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Whispers+Wind', description: 'A mystical journey guided by the ancient whispers of the wind.' })">
+                     <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Whispers of the Wind', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Whispers+Wind', description: 'A mystical journey guided by the ancient whispers of the wind.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Whispers+of+the+Wind' })">
                         <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Whispers+Wind");'></div>
                         <p class="text-white text-base font-medium leading-normal">Whispers of the Wind</p>
                     </div>
-                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Silent Witness', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness', description: 'A mute witness holds the key to solving a high-profile murder.' })">
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Silent Witness', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness', description: 'A mute witness holds the key to solving a high-profile murder.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+The+Silent+Witness' })">
                         <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness");'></div>
                         <p class="text-white text-base font-medium leading-normal">The Silent Witness</p>
                     </div>
-                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Shadows of Deceit', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Shadows+Deceit', description: 'A web of lies and betrayal entangles an unsuspecting protagonist.' })">
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Shadows of Deceit', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Shadows+Deceit', description: 'A web of lies and betrayal entangles an unsuspecting protagonist.', videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Shadows+of+Deceit' })">
                         <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Shadows+Deceit");'></div>
                         <p class="text-white text-base font-medium leading-normal">Shadows of Deceit</p>
                     </div>
@@ -484,7 +525,7 @@
 
             <div id="page-user-profile" class="page">
                 <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
-                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Back" onclick="showPage('page-home')">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none hover:bg-[#472426] rounded-full p-2 transition-colors" aria-label="Back" onclick="window.historyNavigation.back()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                             <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
                         </svg>
@@ -577,7 +618,9 @@
             </button>
             <button onclick="showPage('page-my-list')" class="nav-button flex flex-1 flex-col items-center justify-end gap-1 text-[#c89295] focus:outline-none focus:ring-1 focus:ring-white" data-page="page-my-list">
                  <div class="icon-container">
-                    <svg class="nav-icon-active" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg> <svg class="nav-icon-inactive" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,192,232a8,8,0,0,0,8-8V48A16,16,0,0,0,184,32Zm0,184.57-54.23-33.9a8,8,0,0,0-7.54,0L72,216.57V48H184Z"></path></svg> </div>
+                    <svg class="nav-icon-active" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
+                    <svg class="nav-icon-inactive" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,192,232a8,8,0,0,0,8-8V48A16,16,0,0,0,184,32Zm0,184.57-54.23-33.9a8,8,0,0,0-7.54,0L72,216.57V48H184Z"></path></svg>
+                </div>
                 <p class="text-xs font-medium leading-normal tracking-[0.015em]">My List</p>
             </button>
             <button onclick="showPage('page-user-profile')" class="nav-button flex flex-1 flex-col items-center justify-end gap-1 text-[#c89295] focus:outline-none focus:ring-1 focus:ring-white" data-page="page-user-profile">
@@ -591,125 +634,143 @@
         <div class="h-5 bg-[#331a1b]"></div> </div>
 
     <script>
-        // Store the current movie details to pass to the watch page or for back navigation
-        let currentMovieData = {};
-        let previousPageId = 'page-home'; // Keep track of the page before movie details
+        // Global state variables
+        let currentMovieData = {}; // Holds data for the movie being viewed/watched
+        let pageBeforeDetailsId = 'page-home'; // Tracks the page ID before navigating to movie details
 
+        // Function to toggle the side menu
+        function toggleMenu() {
+            const menu = document.getElementById('side-menu');
+            const overlay = document.getElementById('menu-overlay');
+            const isActive = menu.classList.contains('translate-x-0');
+
+            if (isActive) {
+                menu.classList.remove('translate-x-0');
+                menu.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                menu.classList.remove('-translate-x-full');
+                menu.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        // Function to navigate from the side menu
+        function navigateToFromMenu(pageId, data = {}) {
+            showPage(pageId, data);
+            toggleMenu(); // Close menu after navigation
+        }
+
+        // Main function to switch between pages
         function showPage(pageId, data = {}) {
+            const activePageElement = document.querySelector('.page.active');
+
+            // If navigating to movie-details, store the ID of the page we are coming from,
+            // unless we are coming from the watch page (which means we are going 'back' to details).
+            if (pageId === 'page-movie-details' && activePageElement && activePageElement.id !== 'page-watch' && activePageElement.id !== 'page-movie-details') {
+                pageBeforeDetailsId = activePageElement.id;
+            }
+
             // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
 
-            // Show the target page
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
-                // If navigating to movie details, store the previous page
-                if (pageId === 'page-movie-details' && document.querySelector('.page.active')) {
-                    previousPageId = document.querySelector('.page.active').id;
-                }
-                
                 targetPage.classList.add('active');
-                currentMovieData = data; // Store data for potential use (e.g., watch page)
+                // Store data associated with the new page (e.g., movie title, image, videoSrc)
+                // This is crucial for populating details and watch pages, and for back navigation from watch.
+                currentMovieData = data;
 
-                // Handle Movie Details specific content
-                if (pageId === 'page-movie-details' && data.title) {
-                    document.getElementById('movie-details-title').textContent = data.title;
+                // --- Page-Specific Content Updates ---
+
+                // Update Movie Details Page
+                if (pageId === 'page-movie-details') {
+                    document.getElementById('movie-details-title').textContent = data.title || 'Movie Title';
                     document.getElementById('movie-details-banner').style.backgroundImage = `url("${data.image || 'https://placehold.co/600x400/221112/FFFFFF?text=Movie+Banner'}")`;
                     document.getElementById('movie-details-description').textContent = data.description || 'No description available.';
-                    // Update play button for movie details
-                    const playButton = targetPage.querySelector('button[onclick^="showPage(\'page-watch\'"]');
-                    if(playButton) {
-                        playButton.onclick = () => showPage('page-watch', { videoSrc: data.videoSrc || `https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+${encodeURIComponent(data.title)}`, title: data.title });
+                    // Update the play button on the details page to use the current movie's data
+                    const detailsPlayButton = document.getElementById('detailsPlayButton');
+                    if (detailsPlayButton) {
+                         detailsPlayButton.onclick = () => showPage('page-watch', {
+                            videoSrc: data.videoSrc || `https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+${encodeURIComponent(data.title || 'Video')}`,
+                            title: data.title || 'Video'
+                        });
                     }
                 }
 
-                // Handle Watch Page specific content
+                // Setup Watch Page
                 if (pageId === 'page-watch' && data.videoSrc) {
                     const videoPlayer = document.getElementById('videoPlayer');
-                    const playPauseButton = document.getElementById('playPauseButton');
+                    const playPauseButton = document.getElementById('playPauseButton'); // Center overlay button
                     const playIcon = document.getElementById('playIcon');
                     const pauseIcon = document.getElementById('pauseIcon');
-                    const mainPlayPauseBtnWatch = document.getElementById('mainPlayPauseBtnWatch');
+                    const mainPlayPauseBtnWatch = document.getElementById('mainPlayPauseBtnWatch'); // Bottom controls button
                     const playIconWatch = mainPlayPauseBtnWatch.querySelector('.play-icon-watch');
                     const pauseIconWatch = mainPlayPauseBtnWatch.querySelector('.pause-icon-watch');
 
-
                     videoPlayer.src = data.videoSrc;
                     videoPlayer.poster = `https://placehold.co/1280x720/000000/FFFFFF?text=Loading+${encodeURIComponent(data.title || 'Video')}...`;
-                    videoPlayer.load(); // Important to load new source
-                    
+                    videoPlayer.load();
+
+                    const updatePlayPauseIcons = (isPlaying) => {
+                        playIcon.style.display = isPlaying ? 'none' : 'block';
+                        pauseIcon.style.display = isPlaying ? 'block' : 'none';
+                        playIconWatch.style.display = isPlaying ? 'none' : 'block';
+                        pauseIconWatch.style.display = isPlaying ? 'block' : 'none';
+                        playPauseButton.style.opacity = isPlaying ? 0 : 1; // Hide center button when playing
+                    };
+
                     const playVideo = () => {
-                        videoPlayer.play();
-                        playIcon.style.display = 'none';
-                        pauseIcon.style.display = 'block';
-                        playIconWatch.style.display = 'none';
-                        pauseIconWatch.style.display = 'block';
+                        videoPlayer.play().then(() => {
+                            updatePlayPauseIcons(true);
+                        }).catch(error => {
+                            console.warn("Autoplay was prevented:", error);
+                            updatePlayPauseIcons(false); // Ensure UI reflects non-playing state
+                        });
                     };
 
                     const pauseVideo = () => {
                         videoPlayer.pause();
-                        playIcon.style.display = 'block';
-                        pauseIcon.style.display = 'none';
-                        playIconWatch.style.display = 'block';
-                        pauseIconWatch.style.display = 'none';
-                    };
-                    
-                    playPauseButton.onclick = () => {
-                        if (videoPlayer.paused || videoPlayer.ended) {
-                            playVideo();
-                        } else {
-                            pauseVideo();
-                        }
+                        updatePlayPauseIcons(false);
                     };
 
-                     mainPlayPauseBtnWatch.onclick = () => {
-                        if (videoPlayer.paused || videoPlayer.ended) {
-                            playVideo();
-                        } else {
-                            pauseVideo();
-                        }
+                    playPauseButton.onclick = () => { // Center overlay button
+                        if (videoPlayer.paused || videoPlayer.ended) { playVideo(); } else { pauseVideo(); }
                     };
+                    mainPlayPauseBtnWatch.onclick = () => { // Bottom controls button
+                        if (videoPlayer.paused || videoPlayer.ended) { playVideo(); } else { pauseVideo(); }
+                    };
+                    videoPlayer.onplay = () => updatePlayPauseIcons(true);
+                    videoPlayer.onpause = () => updatePlayPauseIcons(false);
+                    videoPlayer.onended = () => updatePlayPauseIcons(false); // Reset to play icon when video ends
 
-                    videoPlayer.onplay = () => {
-                        playIcon.style.display = 'none';
-                        pauseIcon.style.display = 'block';
-                        playIconWatch.style.display = 'none';
-                        pauseIconWatch.style.display = 'block';
-                        playPauseButton.style.opacity = 0; // Hide center button when playing
-                    };
+                    playVideo(); // Attempt to autoplay
 
-                    videoPlayer.onpause = () => {
-                        playIcon.style.display = 'block';
-                        pauseIcon.style.display = 'none';
-                        playIconWatch.style.display = 'block';
-                        pauseIconWatch.style.display = 'none';
-                        playPauseButton.style.opacity = 1; // Show center button when paused
-                    };
-                    
-                    videoPlayer.onended = () => {
-                       pauseVideo(); // Reset to play icon when video ends
-                    };
-
-                    // Autoplay if specified or by default
-                    videoPlayer.play().catch(error => {
-                        console.warn("Autoplay was prevented:", error);
-                        // Show play button if autoplay fails
-                        playIcon.style.display = 'block';
-                        pauseIcon.style.display = 'none';
-                        playIconWatch.style.display = 'block';
-                        pauseIconWatch.style.display = 'none';
-                    });
-                } else if (pageId === 'page-watch') { // If navigating to watch page without data, stop any playing video
+                } else if (pageId !== 'page-watch') {
+                    // If navigating away from the watch page, stop and reset the video player
                     const videoPlayer = document.getElementById('videoPlayer');
                     if (videoPlayer && !videoPlayer.paused) {
                         videoPlayer.pause();
-                        videoPlayer.src = ""; // Clear src
+                    }
+                    if (videoPlayer) {
+                        videoPlayer.removeAttribute('src'); // Clear the source
+                        videoPlayer.load(); // Reset the player
+                         // Reset icons on the watch page if user navigates away while it might still be "visible" then hidden
+                        document.getElementById('playIcon').style.display = 'block';
+                        document.getElementById('pauseIcon').style.display = 'none';
+                        const mainPlayPauseBtnWatch = document.getElementById('mainPlayPauseBtnWatch');
+                        if(mainPlayPauseBtnWatch) {
+                            mainPlayPauseBtnWatch.querySelector('.play-icon-watch').style.display = 'block';
+                            mainPlayPauseBtnWatch.querySelector('.pause-icon-watch').style.display = 'none';
+                        }
+                        document.getElementById('playPauseButton').style.opacity = 1;
+
                     }
                 }
 
-
-                // Update active state for bottom navigation
+                // --- Update Bottom Navigation Bar Active State ---
                 document.querySelectorAll('.nav-button').forEach(button => {
                     const buttonPage = button.getAttribute('data-page');
                     const pTag = button.querySelector('p');
@@ -738,37 +799,53 @@
                 document.getElementById('content-area').scrollTop = 0;
 
             } else {
-                console.error("Page not found: " + pageId);
+                console.error("Page not found: " + pageId + ". Defaulting to home.");
+                showPage('page-home'); // Fallback to home page if target is not found
             }
         }
-        
-        // Override history.back for movie details page to go to the correct previous page
-        // This is a simplified history management. For complex apps, a router is better.
+
+        // Custom back navigation logic
         window.historyNavigation = {
             back: function() {
-                const currentPage = document.querySelector('.page.active').id;
-                if (currentPage === 'page-movie-details' || currentPage === 'page-watch') {
-                    showPage(previousPageId || 'page-home');
-                } else {
-                    // For other pages, try to go back or to home
-                    const previousActive = document.querySelector('.nav-button.text-white');
-                    if (previousActive && previousActive.dataset.page !== currentPage) {
-                         showPage(previousActive.dataset.page);
-                    } else {
-                        showPage('page-home');
-                    }
+                const currentPageElement = document.querySelector('.page.active');
+                if (!currentPageElement) {
+                    showPage('page-home'); // Should not happen if app is initialized correctly
+                    return;
                 }
+                const currentPageId = currentPageElement.id;
+
+                if (currentPageId === 'page-watch') {
+                    // currentMovieData should have been set when navigating to watch.
+                    // Pass it back to repopulate movie-details.
+                    showPage('page-movie-details', currentMovieData);
+                } else if (currentPageId === 'page-movie-details') {
+                    // pageBeforeDetailsId was set when navigating TO movie-details.
+                    showPage(pageBeforeDetailsId || 'page-home');
+                } else if (currentPageId !== 'page-home') {
+                    // For any other sub-page (search, my-list, profile), go to home.
+                    showPage('page-home');
+                }
+                // If on 'page-home', the back button in the header (if it existed) would typically
+                // either do nothing or prompt to exit the app. This app's design doesn't have
+                // a header back button on the home page itself.
             }
         };
-        // Update back buttons to use this custom navigation
-        document.querySelectorAll('button[onclick="history.back()"]').forEach(button => {
-            button.setAttribute('onclick', 'window.historyNavigation.back()');
-        });
 
-
-        // Initial page load
+        // Initialize the app when the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             showPage('page-home'); // Show home page by default
+
+            // Ensure all back buttons are wired to the custom navigation logic
+            document.querySelectorAll('button[onclick="history.back()"], button[onclick="window.historyNavigation.back()"]').forEach(button => {
+                 button.setAttribute('onclick', 'window.historyNavigation.back()');
+            });
+
+            // Specifically assign the onclick for the details play button after the element is known
+            const detailsPlayButton = document.getElementById('detailsPlayButton');
+            if (detailsPlayButton) {
+                // The actual action will be set dynamically when showPage('page-movie-details', ...) is called
+                // This is just a placeholder or can be removed if showPage handles it entirely.
+            }
         });
     </script>
 </body>
