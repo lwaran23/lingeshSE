@@ -1,654 +1,774 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Device Systems Engineering Insights</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Streamr App</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Space+Grotesk%3Awght%40400%3B500%3B700" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
-        /* style.css */
-        :root {
-            --primary-bg-color: #101820; /* Very Dark Blue/Almost Black */
-            --secondary-bg-color: #1A2433; /* Slightly Lighter Dark Blue */
-            --primary-text-color: #F2F4F7; /* Light Grey/Off-White */
-            --secondary-text-color: #A0AEC0; /* Medium Grey */
-            --accent-color-royal: #005A9C; /* Royal Blue */
-            --accent-color-rich: #DAA520; /* Goldenrod */
-            --accent-color-hover: #FFC107; /* Brighter Gold for hover */
-            --font-heading: 'Cinzel', serif;
-            --font-body: 'Lato', sans-serif;
-            --border-radius: 8px;
-            --transition-speed: 0.4s;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--primary-bg-color);
-            color: var(--primary-text-color);
-            line-height: 1.6;
-            transition: background-color var(--transition-speed), color var(--transition-speed);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background-color: var(--secondary-bg-color);
-            padding: 1.5rem 0;
-            border-bottom: 2px solid var(--accent-color-royal);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        header h1 {
-            font-family: var(--font-heading);
-            color: var(--accent-color-rich);
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: var(--primary-text-color);
-            text-decoration: none;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            transition: background-color var(--transition-speed), color var(--transition-speed);
-            font-size: 1.1rem;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active-link {
-            background-color: var(--accent-color-royal);
-            color: var(--accent-color-rich);
-        }
-
-        main {
-            padding: 2rem 0;
-        }
-
-        .content-section {
-            display: none; /* Hidden by default, shown by JS */
-            padding: 40px 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out;
-            border-bottom: 1px dashed var(--secondary-text-color);
-        }
-
-        .content-section.active-section {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .content-section h2 {
-            font-family: var(--font-heading);
-            color: var(--accent-color-rich);
-            margin-bottom: 1.5rem;
-            font-size: 2.2rem;
-            text-align: center;
-            border-bottom: 1px solid var(--accent-color-royal);
-            padding-bottom: 0.5rem;
-        }
-
-        .content-section h3 {
-            font-family: var(--font-heading);
-            color: var(--accent-color-royal);
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .content-section h4 {
-            font-family: var(--font-heading);
-            color: var(--accent-color-rich);
-            opacity: 0.9;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-        }
-
-        .content-section p,.content-section ul {
-            margin-bottom: 1rem;
-            color: var(--secondary-text-color);
-            font-size: 1.05rem;
-        }
-
-        .content-section ul {
-            list-style-position: inside;
-            padding-left: 20px;
-        }
-
-        .subsection-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        .sub-nav-link {
-            background-color: var(--secondary-bg-color);
-            color: var(--primary-text-color);
-            border: 1px solid var(--accent-color-royal);
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color var(--transition-speed), color var(--transition-speed);
-            font-weight: bold;
-        }
-
-        .sub-nav-link:hover,
-        .sub-nav-link.active-sub-link {
-            background-color: var(--accent-color-royal);
-            color: var(--accent-color-rich);
-        }
-
-        .sub-content {
+        /* Basic styles for page transitions (optional) */
+        .page {
             display: none; /* Hidden by default */
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.03); /* Subtle background for sub-content */
-            border-radius: var(--border-radius);
-            margin-top: 15px;
-            animation: fadeInSubContent 0.5s ease-in-out;
         }
-
-        .sub-content.active-sub-content {
-            display: block;
+        .page.active {
+            display: block; /* Shown when active */
         }
-
-        @keyframes fadeInSubContent {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Ensure full height for content area */
+        .content-area {
+            flex-grow: 1;
+            overflow-y: auto; /* Allows scrolling within content area if needed */
         }
-
-
-        /* Contact Form Styling */
-        #contactForm {
-            background-color: var(--secondary-bg-color);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        html, body {
+            height: 100%;
+            margin: 0;
         }
-
-        .form-group {
-            margin-bottom: 1.5rem;
+        body > .group\/design-root {
+            min-height: 100vh; /* Ensure the main container takes at least the full viewport height */
+            display: flex;
+            flex-direction: column;
         }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--accent-color-rich);
-            font-weight: bold;
+        /* Fix for image aspect ratio and cover */
+        .aspect-\[3\/4\] {
+            padding-bottom: 133.33%; /* 4/3 aspect ratio */
+            position: relative;
+            overflow: hidden;
         }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group textarea {
+        .aspect-\[3\/4\] > div, .aspect-\[3\/4\] > img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 0.8rem;
-            border-radius: var(--border-radius);
-            border: 1px solid var(--accent-color-royal);
-            background-color: var(--primary-bg-color);
-            color: var(--primary-text-color);
-            font-size: 1rem;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the area, cropping if necessary */
         }
-
-        .form-group input[type="text"]:focus,
-        .form-group input[type="email"]:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-color-rich);
-            box-shadow: 0 0 5px var(--accent-color-rich);
+         .aspect-square {
+            padding-bottom: 100%;
+            position: relative;
+            overflow: hidden;
         }
-
-        .submit-button {
-            background-color: var(--accent-color-royal);
-            color: var(--accent-color-rich);
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background-color var(--transition-speed), transform 0.2s;
+        .aspect-square > div, .aspect-square > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-
-        .submit-button:hover {
-            background-color: var(--accent-color-hover);
-            color: var(--primary-bg-color);
-            transform: translateY(-2px);
+        .aspect-video {
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            position: relative;
+            overflow: hidden;
         }
-
-        .form-message {
-            margin-top: 1rem;
-            padding: 0.8rem;
-            border-radius: var(--border-radius);
-            text-align: center;
+        .aspect-video > div, .aspect-video > img, .aspect-video > video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-
-        .form-message.success {
-            background-color: #2E7D32; /* Dark Green */
-            color: white;
+        /* Custom scrollbar for horizontal scrolling sections */
+        .horizontal-scrollbar {
+            overflow-x: auto;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
-
-        .form-message.error {
-            background-color: #C62828; /* Dark Red */
-            color: white;
+        .horizontal-scrollbar::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
         }
-
-
-        footer {
-            background-color: var(--secondary-bg-color);
-            color: var(--secondary-text-color);
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-            border-top: 2px solid var(--accent-color-royal);
+        /* Ensure body takes full height and main div handles scrolling */
+        .main-app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Full viewport height */
         }
-
-        footer p {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+        .content-area {
+            flex-grow: 1;
+            overflow-y: auto; /* Enable vertical scrolling for content */
         }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            nav ul li {
-                margin: 10px 0;
-            }
-           .content-section h2 {
-                font-size: 1.8rem;
-            }
-           .content-section h3 {
-                font-size: 1.5rem;
-            }
-           .content-section h4 {
-                font-size: 1.3rem;
-            }
-           .subsection-nav {
-                flex-direction: column;
-            }
-           .sub-nav-link {
-                width: 100%;
-                text-align: center;
-            }
+        .bottom-nav {
+            flex-shrink: 0; /* Prevent nav from shrinking */
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <div class="container">
-            <h1>Medical Device Systems Engineering</h1>
-            <nav>
-                <ul>
-                    <li><a href="#home" class="nav-link active-link" data-target="home">Home</a></li>
-                    <li><a href="#foundations" class="nav-link" data-target="foundations">Foundations</a></li>
-                    <li><a href="#ventilators" class="nav-link" data-target="ventilators">Ventilators</a></li>
-                    <li><a href="#pen-injectors" class="nav-link" data-target="pen-injectors">Pen-Injectors</a></li>
-                    <li><a href="#contact" class="nav-link" data-target="contact">Contact</a></li>
-                </ul>
-            </nav>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#221112] dark group/design-root overflow-x-hidden main-app-container"
+        style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+
+        <div id="content-area" class="content-area">
+            <div id="page-home" class="page active">
+                <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Menu" onclick="alert('Menu functionality to be implemented')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
+                        </svg>
+                    </button>
+                    <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Streamr</h2>
+                </div>
+                <div class="@container">
+                    <div class="@[480px]:px-4 @[480px]:py-3">
+                        <div class="bg-cover bg-center flex flex-col justify-end overflow-hidden bg-[#221112] @[480px]:rounded-lg min-h-80"
+                            style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 25%), url("https://placehold.co/600x400/221112/FFFFFF?text=Featured+Movie");'>
+                            <div class="flex justify-center gap-2 p-5">
+                                <div class="size-1.5 rounded-full bg-white"></div>
+                                <div class="size-1.5 rounded-full bg-white opacity-50"></div>
+                                <div class="size-1.5 rounded-full bg-white opacity-50"></div>
+                                <div class="size-1.5 rounded-full bg-white opacity-50"></div>
+                                <div class="size-1.5 rounded-full bg-white opacity-50"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3 p-3 overflow-x-auto horizontal-scrollbar">
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Featured</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">New Arrivals</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Trending</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">A-Z</p>
+                    </button>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Top Action Films</h3>
+                <div class="flex overflow-x-auto horizontal-scrollbar">
+                    <div class="flex items-stretch p-4 gap-3">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Last Stand', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Last+Stand', description: 'An aging sheriff and his deputies are the only things standing in the way of a cartel leader and his escape to Mexico.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Last+Stand");'></div>
+                            <p class="text-white text-base font-medium leading-normal">The Last Stand</p>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'City of Shadows', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=City+Shadows', description: 'A detective uncovers a conspiracy in a city shrouded in darkness and corruption.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=City+Shadows");'></div>
+                            <p class="text-white text-base font-medium leading-normal">City of Shadows</p>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Midnight Pursuit', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Pursuit', description: 'A thrilling chase through the city streets as a detective hunts a notorious criminal.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Pursuit");'></div>
+                            <p class="text-white text-base font-medium leading-normal">Midnight Pursuit</p>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Laugh Out Loud Comedies</h3>
+                <div class="flex overflow-x-auto horizontal-scrollbar">
+                    <div class="flex items-stretch p-4 gap-3">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Accidental Hero', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Accidental+Hero', description: 'A clumsy mailman accidentally becomes a town hero.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/472426/FFFFFF?text=Accidental+Hero");'></div>
+                            <p class="text-white text-base font-medium leading-normal">The Accidental Hero</p>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Love & Mishaps', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Love+Mishaps', description: 'A series of hilarious misunderstandings bring an unlikely couple together.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/472426/FFFFFF?text=Love+Mishaps");'></div>
+                            <p class="text-white text-base font-medium leading-normal">Love & Mishaps</p>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Weekend Warriors', image: 'https://placehold.co/300x450/472426/FFFFFF?text=Weekend+Warriors', description: 'Two friends embark on a disastrous weekend camping trip.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/472426/FFFFFF?text=Weekend+Warriors");'></div>
+                            <p class="text-white text-base font-medium leading-normal">Weekend Warriors</p>
+                        </div>
+                    </div>
+                </div>
+                 <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Explore Collections</h3>
+                <div class="p-4">
+                    <div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-lg pt-[132px]"
+                        style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), url("https://placehold.co/600x300/221112/FFFFFF?text=Ethan+Hunt+Collection");'>
+                        <div class="flex w-full items-end justify-between gap-4 p-4">
+                            <p class="text-white tracking-light text-2xl font-bold leading-tight flex-1">The Ethan Hunt Collection</p>
+                            <button onclick="showPage('page-watch', { videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Ethan+Hunt+Movie+Placeholder', title: 'Ethan Hunt Collection Movie' })"
+                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#ea2832] text-white text-sm font-bold leading-normal tracking-[0.015em] focus:outline-none focus:ring-2 focus:ring-white">
+                                <span class="truncate">Watch</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">New Releases</h3>
+                <div class="flex overflow-x-auto horizontal-scrollbar">
+                    <div class="flex items-stretch p-4 gap-3">
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Echoes of the Past', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past', description: 'A historian uncovers a secret that changes her understanding of the past.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past");'></div>
+                            <p class="text-white text-base font-medium leading-normal">Echoes of the Past</p>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Silent Witness', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness', description: 'A mute witness holds the key to solving a high-profile murder.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness");'></div>
+                            <p class="text-white text-base font-medium leading-normal">The Silent Witness</p>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-40 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Beyond the Horizon', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Beyond+Horizon', description: 'Explorers venture into uncharted territory, facing unknown dangers.' })">
+                            <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Beyond+Horizon");'></div>
+                            <p class="text-white text-base font-medium leading-normal">Beyond the Horizon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-5 bg-[#221112]"></div> </div>
+
+            <div id="page-search" class="page">
+                <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Back" onclick="showPage('page-home')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </button>
+                    <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Search</h2>
+                </div>
+                <div class="px-4 py-3">
+                    <label class="flex flex-col min-w-40 h-12 w-full">
+                        <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                            <div class="text-[#c89295] flex border-none bg-[#472426] items-center justify-center pl-4 rounded-l-lg border-r-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                                </svg>
+                            </div>
+                            <input placeholder="Search for movies"
+                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#472426] focus:border-none h-full placeholder:text-[#c89295] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                                value="" />
+                        </div>
+                    </label>
+                </div>
+                <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Browse by category</h2>
+                <div class="flex gap-3 p-3 flex-wrap pr-4">
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Action</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Comedy</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Drama</p>
+                    </button>
+                     <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Thriller</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Sci-Fi</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Romance</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Horror</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Documentary</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Animation</p>
+                    </button>
+                    <button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#472426] pl-4 pr-4 focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                        <p class="text-white text-sm font-medium leading-normal">Family</p>
+                    </button>
+                </div>
+                <div class="h-5 bg-[#221112]"></div> </div>
+
+            <div id="page-movie-details" class="page">
+                <div class="flex items-center bg-[#221112] p-4 pb-2 justify-start sticky top-0 z-10">
+                    <button class="text-white flex size-12 shrink-0 items-center -ml-4 focus:outline-none" aria-label="Back" onclick="history.back()"> <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </button>
+                     </div>
+                <div class="@container">
+                    <div class="@[480px]:px-4 @[480px]:py-3">
+                        <div id="movie-details-banner"
+                            class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-[#221112] @[480px]:rounded-lg min-h-80"
+                            style='background-image: url("https://placehold.co/600x400/221112/FFFFFF?text=Movie+Banner");'>
+                        </div>
+                    </div>
+                </div>
+                <h1 id="movie-details-title" class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Cosmic Echoes</h1>
+                <p id="movie-details-description" class="text-white text-base font-normal leading-normal pb-3 pt-1 px-4">
+                    In a distant future, a lone astronaut discovers a mysterious signal from deep space, leading to a journey that challenges the boundaries of reality and human
+                    understanding.
+                </p>
+                <div class="flex justify-stretch">
+                    <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-between">
+                        <button onclick="showPage('page-watch', { videoSrc: 'https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+Cosmic+Echoes', title: 'Cosmic Echoes' })"
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#ea2832] text-white text-sm font-bold leading-normal tracking-[0.015em] focus:outline-none focus:ring-2 focus:ring-white">
+                            <span class="truncate">Play</span>
+                        </button>
+                        <button onclick="alert('Added to Watchlist!')"
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#472426] text-white text-sm font-bold leading-normal tracking-[0.015em] focus:outline-none focus:ring-2 focus:ring-[#ea2832]">
+                            <span class="truncate">Add to Watchlist</span>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cast & Crew</h3>
+                <div class="flex overflow-x-auto horizontal-scrollbar">
+                    <div class="flex items-stretch p-4 gap-8">
+                        <div class="flex h-full flex-1 flex-col gap-4 text-center rounded-lg min-w-32 pt-4">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full flex flex-col self-center w-full"
+                                style='background-image: url("https://placehold.co/128x128/472426/FFFFFF?text=EB");'></div>
+                            <div>
+                                <p class="text-white text-base font-medium leading-normal">Ethan Blake</p>
+                                <p class="text-[#c89295] text-sm font-normal leading-normal">Director</p>
+                            </div>
+                        </div>
+                         <div class="flex h-full flex-1 flex-col gap-4 text-center rounded-lg min-w-32 pt-4">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full flex flex-col self-center w-full"
+                                style='background-image: url("https://placehold.co/128x128/472426/FFFFFF?text=OR");'></div>
+                            <div>
+                                <p class="text-white text-base font-medium leading-normal">Olivia Reed</p>
+                                <p class="text-[#c89295] text-sm font-normal leading-normal">Lead Actress</p>
+                            </div>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-4 text-center rounded-lg min-w-32 pt-4">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full flex flex-col self-center w-full"
+                                style='background-image: url("https://placehold.co/128x128/472426/FFFFFF?text=MC");'></div>
+                            <div>
+                                <p class="text-white text-base font-medium leading-normal">Marcus Cole</p>
+                                <p class="text-[#c89295] text-sm font-normal leading-normal">Lead Actor</p>
+                            </div>
+                        </div>
+                         <div class="flex h-full flex-1 flex-col gap-4 text-center rounded-lg min-w-32 pt-4">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full flex flex-col self-center w-full"
+                                style='background-image: url("https://placehold.co/128x128/472426/FFFFFF?text=SG");'></div>
+                            <div>
+                                <p class="text-white text-base font-medium leading-normal">Sophia Grant</p>
+                                <p class="text-[#c89295] text-sm font-normal leading-normal">Supporting Actress</p>
+                            </div>
+                        </div>
+                        <div class="flex h-full flex-1 flex-col gap-4 text-center rounded-lg min-w-32 pt-4">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full flex flex-col self-center w-full"
+                                style='background-image: url("https://placehold.co/128x128/472426/FFFFFF?text=LH");'></div>
+                            <div>
+                                <p class="text-white text-base font-medium leading-normal">Liam Hayes</p>
+                                <p class="text-[#c89295] text-sm font-normal leading-normal">Supporting Actor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">User Reviews</h3>
+                <div class="flex flex-wrap gap-x-8 gap-y-6 p-4">
+                    <div class="flex flex-col gap-2">
+                        <p class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">4.5</p>
+                        <div class="flex gap-0.5">
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#c89295]"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256"><path d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"></path></svg></div>
+                        </div>
+                        <p class="text-white text-base font-normal leading-normal">125 reviews</p>
+                    </div>
+                    <div class="grid min-w-[200px] max-w-[400px] flex-1 grid-cols-[20px_1fr_40px] items-center gap-y-3">
+                        <p class="text-white text-sm font-normal leading-normal">5</p><div class="flex h-2 flex-1 overflow-hidden rounded-full bg-[#663336]"><div class="rounded-full bg-[#ea2832]" style="width: 40%;"></div></div><p class="text-[#c89295] text-sm font-normal leading-normal text-right">40%</p>
+                        <p class="text-white text-sm font-normal leading-normal">4</p><div class="flex h-2 flex-1 overflow-hidden rounded-full bg-[#663336]"><div class="rounded-full bg-[#ea2832]" style="width: 30%;"></div></div><p class="text-[#c89295] text-sm font-normal leading-normal text-right">30%</p>
+                        <p class="text-white text-sm font-normal leading-normal">3</p><div class="flex h-2 flex-1 overflow-hidden rounded-full bg-[#663336]"><div class="rounded-full bg-[#ea2832]" style="width: 15%;"></div></div><p class="text-[#c89295] text-sm font-normal leading-normal text-right">15%</p>
+                        <p class="text-white text-sm font-normal leading-normal">2</p><div class="flex h-2 flex-1 overflow-hidden rounded-full bg-[#663336]"><div class="rounded-full bg-[#ea2832]" style="width: 10%;"></div></div><p class="text-[#c89295] text-sm font-normal leading-normal text-right">10%</p>
+                        <p class="text-white text-sm font-normal leading-normal">1</p><div class="flex h-2 flex-1 overflow-hidden rounded-full bg-[#663336]"><div class="rounded-full bg-[#ea2832]" style="width: 5%;"></div></div><p class="text-[#c89295] text-sm font-normal leading-normal text-right">5%</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-8 overflow-x-hidden bg-[#221112] p-4">
+                    <div class="flex flex-col gap-3 bg-[#221112]">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://placehold.co/40x40/472426/FFFFFF?text=AC");'></div>
+                            <div class="flex-1">
+                                <p class="text-white text-base font-medium leading-normal">Ava Carter</p>
+                                <p class="text-[#c89295] text-sm font-normal leading-normal">2 weeks ago</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-0.5"> <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                        </div>
+                        <p class="text-white text-base font-normal leading-normal">Absolutely breathtaking! The visuals are stunning, and the story kept me on the edge of my seat. A must-watch for any sci-fi fan.</p>
+                        <div class="flex gap-9 text-[#c89295]">
+                            <button class="flex items-center gap-2 focus:outline-none focus:text-white"><div class="text-inherit"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"></path></svg></div><p class="text-inherit">25</p></button>
+                            <button class="flex items-center gap-2 focus:outline-none focus:text-white"><div class="text-inherit"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"></path></svg></div><p class="text-inherit">3</p></button>
+                        </div>
+                    </div>
+                     <div class="flex flex-col gap-3 bg-[#221112]">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://placehold.co/40x40/472426/FFFFFF?text=NB");'></div>
+                            <div class="flex-1">
+                                <p class="text-white text-base font-medium leading-normal">Noah Bennett</p>
+                                <p class="text-[#c89295] text-sm font-normal leading-normal">1 month ago</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-0.5"> <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#ea2832]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg></div>
+                            <div class="text-[#8b4649]"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"></path></svg></div>
+                        </div>
+                        <p class="text-white text-base font-normal leading-normal">A solid sci-fi film with a thought-provoking plot. The acting was great, but the pacing could have been better.</p>
+                        <div class="flex gap-9 text-[#c89295]">
+                            <button class="flex items-center gap-2 focus:outline-none focus:text-white"><div class="text-inherit"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"></path></svg></div><p class="text-inherit">18</p></button>
+                            <button class="flex items-center gap-2 focus:outline-none focus:text-white"><div class="text-inherit"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"></path></svg></div><p class="text-inherit">5</p></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-5 bg-[#221112]"></div> </div>
+
+            <div id="page-watch" class="page">
+                <div class="relative flex items-center justify-center bg-black bg-cover bg-center aspect-video" id="watch-video-container">
+                    <video id="videoPlayer" class="w-full h-full" controls autoplay poster="https://placehold.co/1280x720/000000/FFFFFF?text=Loading+Video...">
+                        </video>
+                    <button id="playPauseButton" class="absolute flex shrink-0 items-center justify-center rounded-full size-16 bg-black/40 text-white focus:outline-none">
+                        <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="36px" height="36px" fill="currentColor" viewBox="0 0 256 256"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"></path></svg>
+                        <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="36px" height="36px" fill="currentColor" viewBox="0 0 256 256" style="display:none;"><path d="M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z"></path></svg>
+                    </button>
+                </div>
+                <div class="flex justify-between gap-2 px-4 py-3 bg-[#221112]">
+                    <div class="flex gap-2">
+                        <button class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Back" onclick="showPage('page-movie-details')"> <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
+                        </button>
+                        <button class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Settings" onclick="alert('Video settings to be implemented')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path></svg>
+                        </button>
+                    </div>
+                    <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#ea2832] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 focus:outline-none focus:ring-1 focus:ring-white" aria-label="Closed Captions" onclick="alert('CC options to be implemented')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48ZM116,162.64a40,40,0,1,1,0-69.28,8,8,0,1,1-8,13.85,24,24,0,1,0,0,41.58,8,8,0,0,1,8,13.85Zm80,0a40,40,0,1,1,0-69.28,8,8,0,1,1-8,13.85,24,24,0,1,0,0,41.58,8,8,0,0,1,8,13.85Z"></path></svg>
+                    </button>
+                </div>
+                <div class="flex justify-between gap-2 px-4 py-3 bg-[#221112]">
+                    <div class="flex gap-2">
+                        <button class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Rewind" onclick="document.getElementById('videoPlayer').currentTime -= 10;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M223.77,58a16,16,0,0,0-16.25.53L128,109.14V71.84A15.91,15.91,0,0,0,103.52,58.5L15.33,114.66a15.8,15.8,0,0,0,0,26.68l88.19,56.16A15.91,15.91,0,0,0,128,184.16v-37.3l79.52,50.64A15.91,15.91,0,0,0,232,184.16V71.84A15.83,15.83,0,0,0,223.77,58ZM112,183.93,24.18,128,112,72.06Zm104,0L128.18,128,216,72.06Z"></path></svg>
+                        </button>
+                        <button id="mainPlayPauseBtnWatch" class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Play/Pause">
+                            <svg class="play-icon-watch" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"></path></svg>
+                            <svg class="pause-icon-watch" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256" style="display:none;"><path d="M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z"></path></svg>
+                        </button>
+                        <button class="p-2 text-white focus:outline-none focus:ring-1 focus:ring-white rounded-md" aria-label="Fast Forward" onclick="document.getElementById('videoPlayer').currentTime += 10;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M240.67,114.66,152.48,58.5A15.91,15.91,0,0,0,128,71.84v37.3L48.48,58.5A15.91,15.91,0,0,0,24,71.84V184.16A15.92,15.92,0,0,0,48.48,197.5L128,146.86v37.3a15.92,15.92,0,0,0,24.48,13.34l88.19-56.16a15.8,15.8,0,0,0,0-26.68ZM40,183.94V72.07L127.82,128Zm104,0V72.07L231.82,128Z"></path></svg>
+                        </button>
+                    </div>
+                    <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#ea2832] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 focus:outline-none focus:ring-1 focus:ring-white" aria-label="Volume" onclick="alert('Volume controls to be implemented')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256"><path d="M155.51,24.81a8,8,0,0,0-8.42.88L77.25,80H32A16,16,0,0,0,16,96v64a16,16,0,0,0,16,16H77.25l69.84,54.31A8,8,0,0,0,160,224V32A8,8,0,0,0,155.51,24.81ZM72,160H32V96H72Zm126-58.44a40,40,0,0,1,0,52.88,8,8,0,0,1-12-10.58,24,24,0,0,0,0-31.72,8,8,0,0,1,12-10.58ZM248,128a79.9,79.9,0,0,1-20.37,53.34,8,8,0,0,1-11.92-10.67,64,64,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67A79.83,79.83,0,0,1,248,128Z"></path></svg>
+                    </button>
+                </div>
+                <div class="h-5 bg-[#221112]"></div> </div>
+
+            <div id="page-my-list" class="page">
+                 <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Back" onclick="showPage('page-home')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </button>
+                    <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">My List</h2>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Movies</h3>
+                <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Midnight Hour', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Hour', description: 'A chilling tale that unfolds as the clock strikes twelve.' })">
+                        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Midnight+Hour");'></div>
+                        <p class="text-white text-base font-medium leading-normal">The Midnight Hour</p>
+                    </div>
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Echoes of the Past', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past', description: 'A historian uncovers a secret that changes her understanding of the past.' })">
+                        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Echoes+Past");'></div>
+                        <p class="text-white text-base font-medium leading-normal">Echoes of the Past</p>
+                    </div>
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Crimson Tide', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Crimson+Tide', description: 'Tensions rise aboard a nuclear submarine during a global crisis.' })">
+                        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Crimson+Tide");'></div>
+                        <p class="text-white text-base font-medium leading-normal">Crimson Tide</p>
+                    </div>
+                     <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Whispers of the Wind', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Whispers+Wind', description: 'A mystical journey guided by the ancient whispers of the wind.' })">
+                        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Whispers+Wind");'></div>
+                        <p class="text-white text-base font-medium leading-normal">Whispers of the Wind</p>
+                    </div>
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'The Silent Witness', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness', description: 'A mute witness holds the key to solving a high-profile murder.' })">
+                        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Silent+Witness");'></div>
+                        <p class="text-white text-base font-medium leading-normal">The Silent Witness</p>
+                    </div>
+                    <div class="flex flex-col gap-3 pb-3 cursor-pointer" onclick="showPage('page-movie-details', { title: 'Shadows of Deceit', image: 'https://placehold.co/300x450/EA2832/FFFFFF?text=Shadows+Deceit', description: 'A web of lies and betrayal entangles an unsuspecting protagonist.' })">
+                        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg" style='background-image: url("https://placehold.co/300x450/EA2832/FFFFFF?text=Shadows+Deceit");'></div>
+                        <p class="text-white text-base font-medium leading-normal">Shadows of Deceit</p>
+                    </div>
+                </div>
+                 <div class="h-5 bg-[#221112]"></div> </div>
+
+            <div id="page-user-profile" class="page">
+                <div class="flex items-center bg-[#221112] p-4 pb-2 justify-between sticky top-0 z-10">
+                    <button class="text-white flex size-12 shrink-0 items-center focus:outline-none" aria-label="Back" onclick="showPage('page-home')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </button>
+                    <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Profile</h2>
+                </div>
+                <div class="flex p-4 @container">
+                    <div class="flex w-full flex-col gap-4 items-center">
+                        <div class="flex gap-4 flex-col items-center">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32"
+                                style='background-image: url("https://placehold.co/128x128/472426/FFFFFF?text=SC");'>
+                            </div>
+                            <div class="flex flex-col items-center justify-center justify-center">
+                                <p class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">Sophia Carter</p>
+                                <p class="text-[#c89295] text-base font-normal leading-normal text-center">Premium Member</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Account</h3>
+                <button onclick="alert('Navigate to Personal Information')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Personal Information</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+                <button onclick="alert('Navigate to Subscription')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Subscription</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+                <button onclick="alert('Navigate to Payment Methods')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Payment Methods</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Preferences</h3>
+                 <button onclick="alert('Navigate to Notifications')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Notifications</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+                <button onclick="alert('Navigate to Parental Controls')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Parental Controls</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+                <button onclick="alert('Navigate to Language Settings')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Language</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Support</h3>
+                <button onclick="alert('Navigate to Help Center')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Help Center</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+                <button onclick="alert('Navigate to Contact Us')" class="flex items-center gap-4 bg-[#221112] px-4 min-h-14 justify-between w-full hover:bg-[#331a1b] focus:outline-none focus:bg-[#331a1b]">
+                    <p class="text-white text-base font-normal leading-normal flex-1 truncate text-left">Contact Us</p>
+                    <div class="shrink-0 text-white flex size-7 items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+                    </div>
+                </button>
+                <div class="h-5 bg-[#221112]"></div> </div>
         </div>
-    </header>
 
-    <main>
-        <section id="home" class="content-section active-section">
-            <div class="container">
-                <h2>Welcome to In-Depth Systems Engineering</h2>
-                <p>Explore comprehensive insights into the systems engineering of medical devices, focusing on sleep/respiratory care ventilators and pen-injectors. This resource is derived from an extensive analysis of the field, covering foundational principles, device-specific considerations, regulatory landscapes, and emerging technologies.</p>
-                <p>Navigate through the sections to delve into specific areas of interest.</p>
-            </div>
-        </section>
-
-        <section id="foundations" class="content-section">
-            <div class="container">
-                <h2>Section 1: Foundations of Medical Device Systems Engineering</h2>
-                <div class="subsection-nav">
-                    <button class="sub-nav-link active-sub-link" data-subtarget="foundations-1-1">1.1 Role & Value</button>
-                    <button class="sub-nav-link" data-subtarget="foundations-1-2">1.2 Key Principles</button>
-                    <button class="sub-nav-link" data-subtarget="foundations-1-3">1.3 Lifecycle</button>
-                    <button class="sub-nav-link" data-subtarget="foundations-1-4">1.4 Core Processes</button>
-                    <button class="sub-nav-link" data-subtarget="foundations-1-5">1.5 Quality & Regulatory</button>
+        <div class="bottom-nav flex gap-2 border-t border-[#472426] bg-[#331a1b] px-4 pb-3 pt-2 sticky bottom-0 z-10">
+            <button onclick="showPage('page-home')" class="nav-button flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-white focus:outline-none focus:ring-1 focus:ring-white" data-page="page-home">
+                <div class="icon-container">
+                    <svg class="nav-icon-active" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path></svg>
+                    <svg class="nav-icon-inactive" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path></svg>
                 </div>
-                <div id="foundations-1-1" class="sub-content active-sub-content">
-                    <h3>1.1 The Role and Value of Systems Engineering in Medical Device Development</h3>
-                    <p>Systems engineering plays a crucial role in managing complexity, ensuring safety, and meeting regulatory requirements throughout the medical device lifecycle. Its value lies in reducing risks, improving quality, and accelerating time-to-market by providing a structured approach to design, development, and verification.</p>
+                <p class="text-xs font-medium leading-normal tracking-[0.015em]">Home</p>
+            </button>
+            <button onclick="showPage('page-search')" class="nav-button flex flex-1 flex-col items-center justify-end gap-1 text-[#c89295] focus:outline-none focus:ring-1 focus:ring-white" data-page="page-search">
+                 <div class="icon-container">
+                    <svg class="nav-icon-active" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM112,192a80,80,0,1,1,80-80A80.09,80.09,0,0,1,112,192Z"></path></svg>
+                    <svg class="nav-icon-inactive" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
                 </div>
-                <div id="foundations-1-2" class="sub-content">
-                    <h3>1.2 Key Principles: Stakeholder Needs, Iterative Design, Multidisciplinary Collaboration</h3>
-                    <p>Effective medical device systems engineering is built on understanding and translating stakeholder needs into clear requirements, employing iterative design and prototyping to refine solutions, and fostering close collaboration among diverse engineering, clinical, and regulatory teams.</p>
+                <p class="text-xs font-medium leading-normal tracking-[0.015em]">Search</p>
+            </button>
+            <button onclick="showPage('page-my-list')" class="nav-button flex flex-1 flex-col items-center justify-end gap-1 text-[#c89295] focus:outline-none focus:ring-1 focus:ring-white" data-page="page-my-list">
+                 <div class="icon-container">
+                    <svg class="nav-icon-active" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg> <svg class="nav-icon-inactive" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,192,232a8,8,0,0,0,8-8V48A16,16,0,0,0,184,32Zm0,184.57-54.23-33.9a8,8,0,0,0-7.54,0L72,216.57V48H184Z"></path></svg> </div>
+                <p class="text-xs font-medium leading-normal tracking-[0.015em]">My List</p>
+            </button>
+            <button onclick="showPage('page-user-profile')" class="nav-button flex flex-1 flex-col items-center justify-end gap-1 text-[#c89295] focus:outline-none focus:ring-1 focus:ring-white" data-page="page-user-profile">
+                <div class="icon-container">
+                    <svg class="nav-icon-active" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M230.93,220a8,8,0,0,1-6.93,4H32a8,8,0,0,1-6.92-12c15.23-26.33,38.7-45.21,66.09-54.16a72,72,0,1,1,73.66,0c27.39,8.95,50.86,27.83,66.09,54.16A8,8,0,0,1,230.93,220Z"></path></svg>
+                    <svg class="nav-icon-inactive" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
                 </div>
-                <div id="foundations-1-3" class="sub-content">
-                    <h3>1.3 The Medical Device Development Lifecycle: Phases and Activities</h3>
-                    <p>The lifecycle typically includes conceptualization, planning, design and development, verification and validation, manufacturing transfer, and post-market surveillance. Each phase involves specific systems engineering activities to ensure the device meets its intended use safely and effectively.</p>
-                </div>
-                <div id="foundations-1-4" class="sub-content">
-                    <h3>1.4 Core Systems Engineering Processes</h3>
-                    <h4>1.4.1 Requirements Engineering and Management</h4>
-                    <p>This involves eliciting, analyzing, specifying, validating, and managing requirements from all stakeholders (users, regulatory bodies, business). Traceability of requirements is key.</p>
-                    <h4>1.4.2 Risk Management (ISO 14971)</h4>
-                    <p>A systematic process to identify, analyze, evaluate, control, and monitor risks associated with a medical device throughout its lifecycle. ISO 14971 provides the framework.</p>
-                    <h4>1.4.3 Design Verification and Validation (V&V)</h4>
-                    <p>Verification confirms that design outputs meet design inputs. Validation confirms that the device meets user needs and intended uses under actual or simulated use conditions.</p>
-                    <h4>1.4.4 Human Factors Engineering & Usability (IEC 62366)</h4>
-                    <p>Focuses on designing devices that are safe, effective, and easy for the intended users to operate in the intended use environment. IEC 62366 outlines the usability engineering process.</p>
-                </div>
-                <div id="foundations-1-5" class="sub-content">
-                    <h3>1.5 Essential Quality and Regulatory Considerations</h3>
-                    <h4>1.5.1 Quality Management Systems (ISO 13485)</h4>
-                    <p>ISO 13485 specifies requirements for a QMS where an organization needs to demonstrate its ability to provide medical devices and related services that consistently meet customer and applicable regulatory requirements.</p>
-                    <h4>1.5.2 Overview of FDA and EU MDR Frameworks</h4>
-                    <p>The FDA (U.S. Food and Drug Administration) and EU MDR (European Union Medical Device Regulation) are primary regulatory frameworks governing medical device approval and market access. They have distinct requirements for classification, clinical evidence, and post-market activities.</p>
-                    <h4>1.5.3 Biocompatibility (ISO 10993 Overview)</h4>
-                    <p>ISO 10993 provides a framework for assessing the biological safety of medical devices that come into contact with the body, ensuring they do not cause adverse local or systemic effects.</p>
-                    <h4>1.5.4 Cybersecurity for Connected Medical Devices</h4>
-                    <p>With increasing connectivity, ensuring the cybersecurity of medical devices is critical to protect patient data and device functionality from threats. Regulatory bodies are placing greater emphasis on robust cybersecurity measures.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="ventilators" class="content-section">
-            <div class="container">
-                <h2>Section 2: Systems Engineering of Sleep and Respiratory Care Ventilators</h2>
-                <div class="subsection-nav">
-                     <button class="sub-nav-link active-sub-link" data-subtarget="ventilators-2-1">2.1 Overview</button>
-                     <button class="sub-nav-link" data-subtarget="ventilators-2-2">2.2 Subsystems</button>
-                     <button class="sub-nav-link" data-subtarget="ventilators-2-3">2.3 SE Considerations</button>
-                     <button class="sub-nav-link" data-subtarget="ventilators-2-4">2.4 Regulatory</button>
-                     <button class="sub-nav-link" data-subtarget="ventilators-2-5">2.5 Case Studies</button>
-                </div>
-                <div id="ventilators-2-1" class="sub-content active-sub-content">
-                    <h3>2.1 Overview of Ventilator Technology</h3>
-                    <p>Ventilators are life-supporting devices that assist or replace spontaneous breathing. They range from simple CPAP/BiPAP devices for sleep apnea to complex ICU ventilators for critical care. Key functions include controlled delivery of air/oxygen, monitoring of respiratory parameters, and alarm systems.</p>
-                </div>
-                <div id="ventilators-2-2" class="sub-content">
-                    <h3>2.2 Key Subsystems and Components of Ventilators</h3>
-                    <p>Major subsystems include: 1. Gas Delivery (pneumatics, blowers, valves, flow sensors). 2. Patient Interface (masks, tubing, humidifiers). 3. Control System (microprocessors, algorithms, user interface). 4. Monitoring and Alarms (pressure, volume, SpO2 sensors). 5. Power Management (battery backup).</p>
-                </div>
-                <div id="ventilators-2-3" class="sub-content">
-                    <h3>2.3 Critical Systems Engineering Considerations for Ventilators</h3>
-                     <p>Reliability and safety are paramount. This includes robust alarm systems, fault tolerance, precise control of ventilation parameters, human factors for ease of use by clinicians and patients, biocompatibility of patient-contacting parts, and electromagnetic compatibility.</p>
-                </div>
-                <div id="ventilators-2-4" class="sub-content">
-                    <h3>2.4 Regulatory Pathways and Compliance for Ventilators (FDA and EU MDR)</h3>
-                    <p>Ventilators are typically Class II or Class III devices (FDA) / Class IIb or Class III (EU MDR), requiring rigorous premarket submissions (e.g., 510(k) or PMA / CE marking technical documentation), extensive testing (electrical safety, EMC, performance), and clinical data.</p>
-                </div>
-                <div id="ventilators-2-5" class="sub-content">
-                    <h3>2.5 Case Studies and Best Practices in Ventilator Development</h3>
-                    <p>Examples include the rapid development of emergency ventilators during pandemics, highlighting the importance of agile design and regulatory flexibility. Best practices involve early user feedback, model-based systems engineering (MBSE), and comprehensive risk management.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="pen-injectors" class="content-section">
-            <div class="container">
-                <h2>Section 3: Systems Engineering of Pen-Injectors</h2>
-                <div class="subsection-nav">
-                     <button class="sub-nav-link active-sub-link" data-subtarget="pen-injectors-3-1">3.1 Overview</button>
-                     <button class="sub-nav-link" data-subtarget="pen-injectors-3-2">3.2 Subsystems</button>
-                     <button class="sub-nav-link" data-subtarget="pen-injectors-3-3">3.3 SE Considerations</button>
-                </div>
-                <div id="pen-injectors-3-1" class="sub-content active-sub-content">
-                    <h3>3.1 Overview of Pen-Injector Technology</h3>
-                    <p>Pen-injectors are drug delivery devices used for self-administration of fixed or variable doses of medication (e.g., insulin, hormones). They aim to improve dosing accuracy, convenience, and patient adherence compared to traditional vial and syringe methods.</p>
-                </div>
-                 <div id="pen-injectors-3-2" class="sub-content">
-                    <h3>3.2 Key Subsystems and Components of Pen-Injectors</h3>
-                    <p>Key components include: 1. Drug Cartridge Holder. 2. Dosing Mechanism (dial, plunger, lead screw). 3. Activation Mechanism (button, trigger). 4. Needle Attachment System. 5. Housing and Ergonomic Features. Some may include electronic displays or connectivity.</p>
-                </div>
-                <div id="pen-injectors-3-3" class="sub-content">
-                    <h3>3.3 Critical Systems Engineering Considerations for Pen-Injectors</h3>
-                    <p>Focus areas include dose accuracy and precision, ease of use for diverse patient populations (including those with dexterity limitations), material compatibility with the drug, robustness of the mechanism over its intended life, clear feedback to the user (dose setting, injection completion), and safety features to prevent needlestick injuries or incorrect use.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="content-section">
-            <div class="container">
-                <h2>Contact Us / Provide Feedback</h2>
-                <p>We value your input. Please use the form below to send us your questions or feedback.</p>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject:</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">Send Message</button>
-                </form>
-                <p id="formMessage" class="form-message"></p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="currentYear"></span> Medical Device Systems Engineering Insights. All rights reserved.</p>
-            <p>Disclaimer: This website provides information based on research and is for educational purposes only. It does not constitute professional medical or engineering advice.</p>
+                <p class="text-xs font-medium leading-normal tracking-[0.015em]">Profile</p>
+            </button>
         </div>
-    </footer>
+        <div class="h-5 bg-[#331a1b]"></div> </div>
 
     <script>
-        // script.js
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('nav .nav-link'); // Corrected selector
-            const contentSections = document.querySelectorAll('.content-section');
-            const contactForm = document.getElementById('contactForm');
-            const formMessage = document.getElementById('formMessage');
-            const currentYearSpan = document.getElementById('currentYear');
+        // Store the current movie details to pass to the watch page or for back navigation
+        let currentMovieData = {};
+        let previousPageId = 'page-home'; // Keep track of the page before movie details
 
-            if (currentYearSpan) {
-                currentYearSpan.textContent = new Date().getFullYear();
-            }
-
-            // Function to handle navigation
-            function navigateToSection(targetId) {
-                // Hide all sections and remove active class from links
-                contentSections.forEach(section => {
-                    section.classList.remove('active-section');
-                });
-                navLinks.forEach(link => {
-                    link.classList.remove('active-link');
-                });
-
-                // Show target section and set active class on link
-                const targetSection = document.getElementById(targetId);
-                // Ensure querySelector is specific enough
-                const targetLink = document.querySelector(`nav .nav-link[data-target="${targetId}"]`);
-
-
-                if (targetSection) {
-                    // Use a slight delay to allow display:block to take effect before animation
-                    setTimeout(() => {
-                        targetSection.classList.add('active-section');
-                    }, 10); // Small delay
-                }
-                if (targetLink) {
-                    targetLink.classList.add('active-link');
-                }
-
-                // Scroll to the section smoothly
-                if (targetSection) {
-                   // Scroll into view, but only if not already in view to avoid jump on load for #home
-                   // Or simply always scroll:
-                   // targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-            
-            // Function to handle sub-navigation within a section
-            function handleSubNavigation(sectionId) {
-                const sectionElement = document.getElementById(sectionId);
-                if (!sectionElement) return;
-
-                const subNavLinks = sectionElement.querySelectorAll('.sub-nav-link');
-                const subContentSections = sectionElement.querySelectorAll('.sub-content');
-
-                subNavLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        const subTargetId = link.dataset.subtarget;
-
-                        subContentSections.forEach(subSection => {
-                            subSection.classList.remove('active-sub-content');
-                        });
-                        subNavLinks.forEach(sLink => {
-                            sLink.classList.remove('active-sub-link');
-                        });
-
-                        const targetSubSection = document.getElementById(subTargetId);
-                        if (targetSubSection) {
-                            targetSubSection.classList.add('active-sub-content');
-                        }
-                        link.classList.add('active-sub-link');
-                    });
-                });
-
-                // Activate the first sub-navigation link by default if it exists
-                // The active-sub-content class is already set in HTML for the first sub-content
-                // The active-sub-link class is also set in HTML for the first sub-nav-link
-            }
-
-
-            // Add click event listeners to main navigation links
-            navLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const targetId = link.dataset.target;
-                    navigateToSection(targetId);
-                     // Update URL hash for bookmarking/sharing, without causing page jump if handled carefully
-                    if (history.pushState) {
-                        history.pushState(null, null, `#${targetId}`);
-                    } else {
-                        window.location.hash = `#${targetId}`;
-                    }
-                });
+        function showPage(pageId, data = {}) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
 
-            // Initialize sub-navigation for all relevant sections
-            ['foundations', 'ventilators', 'pen-injectors'].forEach(sectionId => {
-                handleSubNavigation(sectionId);
-            });
-            
-            // Handle contact form submission
-            if (contactForm) {
-                contactForm.addEventListener('submit', (event) => {
-                    event.preventDefault(); // Prevent actual form submission
+            // Show the target page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                // If navigating to movie details, store the previous page
+                if (pageId === 'page-movie-details' && document.querySelector('.page.active')) {
+                    previousPageId = document.querySelector('.page.active').id;
+                }
+                
+                targetPage.classList.add('active');
+                currentMovieData = data; // Store data for potential use (e.g., watch page)
 
-                    const name = document.getElementById('name').value;
-                    const email = document.getElementById('email').value;
-                    const subject = document.getElementById('subject').value;
-                    const message = document.getElementById('message').value;
-
-                    // For GitHub Pages, you can't directly process this server-side.
-                    // Option 1: Log to console (for demonstration)
-                    console.log('Form Submitted:');
-                    console.log('Name:', name);
-                    console.log('Email:', email);
-                    console.log('Subject:', subject);
-                    console.log('Message:', message);
-
-                    // Display a success message to the user
-                    if (formMessage) {
-                        formMessage.textContent = 'Thank you for your message! (Data logged to console)';
-                        formMessage.className = 'form-message success'; // Add success class
+                // Handle Movie Details specific content
+                if (pageId === 'page-movie-details' && data.title) {
+                    document.getElementById('movie-details-title').textContent = data.title;
+                    document.getElementById('movie-details-banner').style.backgroundImage = `url("${data.image || 'https://placehold.co/600x400/221112/FFFFFF?text=Movie+Banner'}")`;
+                    document.getElementById('movie-details-description').textContent = data.description || 'No description available.';
+                    // Update play button for movie details
+                    const playButton = targetPage.querySelector('button[onclick^="showPage(\'page-watch\'"]');
+                    if(playButton) {
+                        playButton.onclick = () => showPage('page-watch', { videoSrc: data.videoSrc || `https://placehold.co/1280x720/000000/FFFFFF.mp4&text=Playing+${encodeURIComponent(data.title)}`, title: data.title });
                     }
-                    contactForm.reset(); // Clear the form
+                }
 
-                    // Option 2: Integrate with a third-party service like Formspree.
-                    // To do this, you would change the form's `action` attribute to your Formspree endpoint
-                    // and remove `event.preventDefault()` or handle submission via fetch API.
-                    // Example for Formspree (replace YOUR_FORM_ID with your actual Formspree ID):
-                    // <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                    // Then, you might not need the JS handling for submission itself, or you'd use fetch:
-                    /*
-                    fetch('https://formspree.io/f/YOUR_FORM_ID', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ name, email, subject, message })
-                    }).then(response => {
-                        if (response.ok) {
-                            formMessage.textContent = 'Thank you for your message!';
-                            formMessage.className = 'form-message success';
-                            contactForm.reset();
+                // Handle Watch Page specific content
+                if (pageId === 'page-watch' && data.videoSrc) {
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    const playPauseButton = document.getElementById('playPauseButton');
+                    const playIcon = document.getElementById('playIcon');
+                    const pauseIcon = document.getElementById('pauseIcon');
+                    const mainPlayPauseBtnWatch = document.getElementById('mainPlayPauseBtnWatch');
+                    const playIconWatch = mainPlayPauseBtnWatch.querySelector('.play-icon-watch');
+                    const pauseIconWatch = mainPlayPauseBtnWatch.querySelector('.pause-icon-watch');
+
+
+                    videoPlayer.src = data.videoSrc;
+                    videoPlayer.poster = `https://placehold.co/1280x720/000000/FFFFFF?text=Loading+${encodeURIComponent(data.title || 'Video')}...`;
+                    videoPlayer.load(); // Important to load new source
+                    
+                    const playVideo = () => {
+                        videoPlayer.play();
+                        playIcon.style.display = 'none';
+                        pauseIcon.style.display = 'block';
+                        playIconWatch.style.display = 'none';
+                        pauseIconWatch.style.display = 'block';
+                    };
+
+                    const pauseVideo = () => {
+                        videoPlayer.pause();
+                        playIcon.style.display = 'block';
+                        pauseIcon.style.display = 'none';
+                        playIconWatch.style.display = 'block';
+                        pauseIconWatch.style.display = 'none';
+                    };
+                    
+                    playPauseButton.onclick = () => {
+                        if (videoPlayer.paused || videoPlayer.ended) {
+                            playVideo();
                         } else {
-                            response.json().then(data => {
-                                if (Object.hasOwn(data, 'errors')) {
-                                    formMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
-                                } else {
-                                    formMessage.textContent = 'Oops! There was a problem submitting your form.';
-                                }
-                                formMessage.className = 'form-message error';
-                            })
+                            pauseVideo();
                         }
-                    }).catch(error => {
-                        formMessage.textContent = 'Oops! There was a problem submitting your form.';
-                        formMessage.className = 'form-message error';
-                    });
-                    */
+                    };
 
-                    if(formMessage){
-                        setTimeout(() => {
-                            formMessage.textContent = '';
-                            formMessage.className = 'form-message';
-                        }, 5000); // Clear message after 5 seconds
+                     mainPlayPauseBtnWatch.onclick = () => {
+                        if (videoPlayer.paused || videoPlayer.ended) {
+                            playVideo();
+                        } else {
+                            pauseVideo();
+                        }
+                    };
+
+                    videoPlayer.onplay = () => {
+                        playIcon.style.display = 'none';
+                        pauseIcon.style.display = 'block';
+                        playIconWatch.style.display = 'none';
+                        pauseIconWatch.style.display = 'block';
+                        playPauseButton.style.opacity = 0; // Hide center button when playing
+                    };
+
+                    videoPlayer.onpause = () => {
+                        playIcon.style.display = 'block';
+                        pauseIcon.style.display = 'none';
+                        playIconWatch.style.display = 'block';
+                        pauseIconWatch.style.display = 'none';
+                        playPauseButton.style.opacity = 1; // Show center button when paused
+                    };
+                    
+                    videoPlayer.onended = () => {
+                       pauseVideo(); // Reset to play icon when video ends
+                    };
+
+                    // Autoplay if specified or by default
+                    videoPlayer.play().catch(error => {
+                        console.warn("Autoplay was prevented:", error);
+                        // Show play button if autoplay fails
+                        playIcon.style.display = 'block';
+                        pauseIcon.style.display = 'none';
+                        playIconWatch.style.display = 'block';
+                        pauseIconWatch.style.display = 'none';
+                    });
+                } else if (pageId === 'page-watch') { // If navigating to watch page without data, stop any playing video
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    if (videoPlayer && !videoPlayer.paused) {
+                        videoPlayer.pause();
+                        videoPlayer.src = ""; // Clear src
+                    }
+                }
+
+
+                // Update active state for bottom navigation
+                document.querySelectorAll('.nav-button').forEach(button => {
+                    const buttonPage = button.getAttribute('data-page');
+                    const pTag = button.querySelector('p');
+                    const iconContainer = button.querySelector('.icon-container');
+                    const activeIcon = iconContainer.querySelector('.nav-icon-active');
+                    const inactiveIcon = iconContainer.querySelector('.nav-icon-inactive');
+
+                    if (buttonPage === pageId) {
+                        button.classList.remove('text-[#c89295]');
+                        button.classList.add('text-white');
+                        pTag.classList.remove('text-[#c89295]');
+                        pTag.classList.add('text-white');
+                        activeIcon.style.display = 'block';
+                        inactiveIcon.style.display = 'none';
+                    } else {
+                        button.classList.remove('text-white');
+                        button.classList.add('text-[#c89295]');
+                        pTag.classList.remove('text-white');
+                        pTag.classList.add('text-[#c89295]');
+                        activeIcon.style.display = 'none';
+                        inactiveIcon.style.display = 'block';
                     }
                 });
-            }
 
-            // Show the initial section based on URL hash or default to 'home'
-            // The 'active-section' and 'active-link' classes are already set on the home elements in HTML.
-            // This function will ensure the correct section is displayed on load if a hash is present.
-            const initialTargetFromHash = window.location.hash.substring(1);
-            if (initialTargetFromHash) {
-                navigateToSection(initialTargetFromHash);
+                // Scroll to top of the new page content
+                document.getElementById('content-area').scrollTop = 0;
+
             } else {
-                // If no hash, ensure 'home' is correctly initialized (already done by HTML, but good for robustness)
-                 navigateToSection('home');
+                console.error("Page not found: " + pageId);
             }
+        }
+        
+        // Override history.back for movie details page to go to the correct previous page
+        // This is a simplified history management. For complex apps, a router is better.
+        window.historyNavigation = {
+            back: function() {
+                const currentPage = document.querySelector('.page.active').id;
+                if (currentPage === 'page-movie-details' || currentPage === 'page-watch') {
+                    showPage(previousPageId || 'page-home');
+                } else {
+                    // For other pages, try to go back or to home
+                    const previousActive = document.querySelector('.nav-button.text-white');
+                    if (previousActive && previousActive.dataset.page !== currentPage) {
+                         showPage(previousActive.dataset.page);
+                    } else {
+                        showPage('page-home');
+                    }
+                }
+            }
+        };
+        // Update back buttons to use this custom navigation
+        document.querySelectorAll('button[onclick="history.back()"]').forEach(button => {
+            button.setAttribute('onclick', 'window.historyNavigation.back()');
+        });
+
+
+        // Initial page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('page-home'); // Show home page by default
         });
     </script>
 </body>
